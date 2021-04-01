@@ -1,2 +1,3 @@
-# plattar-web
-Plattar Web SDK for interfacing with the Plattar Engine &amp; Renderer
+<h3 align="center">
+  <img src="graphics/logo.png?raw=true" alt="Plattar Logo" width="600">
+</h3>
