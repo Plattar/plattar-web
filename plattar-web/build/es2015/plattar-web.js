@@ -86,18 +86,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     1: [function (require, module, exports) {
       var PlattarSceneElement = require("./plattar-scene-element.js");
 
-      var WebXRElement = /*#__PURE__*/function (_PlattarSceneElement) {
-        _inherits(WebXRElement, _PlattarSceneElement);
+      var EditorElement = /*#__PURE__*/function (_PlattarSceneElement) {
+        _inherits(EditorElement, _PlattarSceneElement);
 
-        var _super = _createSuper(WebXRElement);
+        var _super = _createSuper(EditorElement);
 
-        function WebXRElement() {
-          _classCallCheck(this, WebXRElement);
+        function EditorElement() {
+          _classCallCheck(this, EditorElement);
 
           return _super.call(this);
         }
 
-        _createClass(WebXRElement, [{
+        _createClass(EditorElement, [{
           key: "connectedCallback",
           value: function connectedCallback() {
             var nodes = this._setup();
@@ -117,28 +117,28 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           }
         }]);
 
-        return WebXRElement;
+        return EditorElement;
       }(PlattarSceneElement);
 
-      module.exports = WebXRElement;
+      module.exports = EditorElement;
     }, {
       "./plattar-scene-element.js": 4
     }],
     2: [function (require, module, exports) {
       var PlattarSceneElement = require("./plattar-scene-element.js");
 
-      var WebXRElement = /*#__PURE__*/function (_PlattarSceneElement2) {
-        _inherits(WebXRElement, _PlattarSceneElement2);
+      var EWallElement = /*#__PURE__*/function (_PlattarSceneElement2) {
+        _inherits(EWallElement, _PlattarSceneElement2);
 
-        var _super2 = _createSuper(WebXRElement);
+        var _super2 = _createSuper(EWallElement);
 
-        function WebXRElement() {
-          _classCallCheck(this, WebXRElement);
+        function EWallElement() {
+          _classCallCheck(this, EWallElement);
 
           return _super2.call(this);
         }
 
-        _createClass(WebXRElement, [{
+        _createClass(EWallElement, [{
           key: "connectedCallback",
           value: function connectedCallback() {
             var nodes = this._setup();
@@ -158,28 +158,28 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           }
         }]);
 
-        return WebXRElement;
+        return EWallElement;
       }(PlattarSceneElement);
 
-      module.exports = WebXRElement;
+      module.exports = EWallElement;
     }, {
       "./plattar-scene-element.js": 4
     }],
     3: [function (require, module, exports) {
       var PlattarSceneElement = require("./plattar-scene-element.js");
 
-      var WebXRElement = /*#__PURE__*/function (_PlattarSceneElement3) {
-        _inherits(WebXRElement, _PlattarSceneElement3);
+      var FaceARElement = /*#__PURE__*/function (_PlattarSceneElement3) {
+        _inherits(FaceARElement, _PlattarSceneElement3);
 
-        var _super3 = _createSuper(WebXRElement);
+        var _super3 = _createSuper(FaceARElement);
 
-        function WebXRElement() {
-          _classCallCheck(this, WebXRElement);
+        function FaceARElement() {
+          _classCallCheck(this, FaceARElement);
 
           return _super3.call(this);
         }
 
-        _createClass(WebXRElement, [{
+        _createClass(FaceARElement, [{
           key: "connectedCallback",
           value: function connectedCallback() {
             var nodes = this._setup();
@@ -190,6 +190,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
               mode: 'open'
             });
             iframe.setAttribute("src", iframe.getAttribute("src") + "/facear.html?scene_id=" + nodes.sceneID);
+            iframe.setAttribute("allow", "camera *");
 
             if (style) {
               shadow.append(style);
@@ -199,10 +200,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           }
         }]);
 
-        return WebXRElement;
+        return FaceARElement;
       }(PlattarSceneElement);
 
-      module.exports = WebXRElement;
+      module.exports = FaceARElement;
     }, {
       "./plattar-scene-element.js": 4
     }],
@@ -312,18 +313,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     6: [function (require, module, exports) {
       var PlattarSceneElement = require("./plattar-scene-element.js");
 
-      var EditorElement = /*#__PURE__*/function (_PlattarSceneElement5) {
-        _inherits(EditorElement, _PlattarSceneElement5);
+      var WebXRElement = /*#__PURE__*/function (_PlattarSceneElement5) {
+        _inherits(WebXRElement, _PlattarSceneElement5);
 
-        var _super6 = _createSuper(EditorElement);
+        var _super6 = _createSuper(WebXRElement);
 
-        function EditorElement() {
-          _classCallCheck(this, EditorElement);
+        function WebXRElement() {
+          _classCallCheck(this, WebXRElement);
 
           return _super6.call(this);
         }
 
-        _createClass(EditorElement, [{
+        _createClass(WebXRElement, [{
           key: "connectedCallback",
           value: function connectedCallback() {
             var nodes = this._setup();
@@ -343,10 +344,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           }
         }]);
 
-        return EditorElement;
+        return WebXRElement;
       }(PlattarSceneElement);
 
-      module.exports = EditorElement;
+      module.exports = WebXRElement;
     }, {
       "./plattar-scene-element.js": 4
     }],

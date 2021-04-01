@@ -1,6 +1,6 @@
 const PlattarSceneElement = require("./plattar-scene-element.js");
 
-class EditorElement extends PlattarSceneElement {
+class WebXRElement extends PlattarSceneElement {
     constructor() {
         super();
     }
@@ -22,4 +22,4 @@ class EditorElement extends PlattarSceneElement {
     }
 }
 
-module.exports = EditorElement;
+module.exports = WebXRElement;

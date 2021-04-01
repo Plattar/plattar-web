@@ -1,7 +1,7 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Plattar = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const PlattarSceneElement = require("./plattar-scene-element.js");
 
-class WebXRElement extends PlattarSceneElement {
+class EditorElement extends PlattarSceneElement {
     constructor() {
         super();
     }
@@ -23,11 +23,11 @@ class WebXRElement extends PlattarSceneElement {
     }
 }
 
-module.exports = WebXRElement;
+module.exports = EditorElement;
 },{"./plattar-scene-element.js":4}],2:[function(require,module,exports){
 const PlattarSceneElement = require("./plattar-scene-element.js");
 
-class WebXRElement extends PlattarSceneElement {
+class EWallElement extends PlattarSceneElement {
     constructor() {
         super();
     }
@@ -49,11 +49,11 @@ class WebXRElement extends PlattarSceneElement {
     }
 }
 
-module.exports = WebXRElement;
+module.exports = EWallElement;
 },{"./plattar-scene-element.js":4}],3:[function(require,module,exports){
 const PlattarSceneElement = require("./plattar-scene-element.js");
 
-class WebXRElement extends PlattarSceneElement {
+class FaceARElement extends PlattarSceneElement {
     constructor() {
         super();
     }
@@ -66,6 +66,7 @@ class WebXRElement extends PlattarSceneElement {
         const shadow = this.attachShadow({ mode: 'open' });
 
         iframe.setAttribute("src", iframe.getAttribute("src") + "/facear.html?scene_id=" + nodes.sceneID);
+        iframe.setAttribute("allow", "camera *");
 
         if (style) {
             shadow.append(style);
@@ -75,7 +76,7 @@ class WebXRElement extends PlattarSceneElement {
     }
 }
 
-module.exports = WebXRElement;
+module.exports = FaceARElement;
 },{"./plattar-scene-element.js":4}],4:[function(require,module,exports){
 const Util = require("../util/util.js");
 
@@ -158,7 +159,7 @@ module.exports = ViewerElement;
 },{"./plattar-scene-element.js":4}],6:[function(require,module,exports){
 const PlattarSceneElement = require("./plattar-scene-element.js");
 
-class EditorElement extends PlattarSceneElement {
+class WebXRElement extends PlattarSceneElement {
     constructor() {
         super();
     }
@@ -180,7 +181,7 @@ class EditorElement extends PlattarSceneElement {
     }
 }
 
-module.exports = EditorElement;
+module.exports = WebXRElement;
 },{"./plattar-scene-element.js":4}],7:[function(require,module,exports){
 "use strict";
 const WebXRElement = require("./elements/webxr-element.js");

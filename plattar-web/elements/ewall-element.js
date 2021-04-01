@@ -1,6 +1,6 @@
 const PlattarSceneElement = require("./plattar-scene-element.js");
 
-class WebXRElement extends PlattarSceneElement {
+class EWallElement extends PlattarSceneElement {
     constructor() {
         super();
     }
@@ -22,4 +22,4 @@ class WebXRElement extends PlattarSceneElement {
     }
 }
 
-module.exports = WebXRElement;
+module.exports = EWallElement;

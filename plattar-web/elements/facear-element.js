@@ -1,6 +1,6 @@
 const PlattarSceneElement = require("./plattar-scene-element.js");
 
-class WebXRElement extends PlattarSceneElement {
+class FaceARElement extends PlattarSceneElement {
     constructor() {
         super();
     }
@@ -13,6 +13,7 @@ class WebXRElement extends PlattarSceneElement {
         const shadow = this.attachShadow({ mode: 'open' });
 
         iframe.setAttribute("src", iframe.getAttribute("src") + "/facear.html?scene_id=" + nodes.sceneID);
+        iframe.setAttribute("allow", "camera *");
 
         if (style) {
             shadow.append(style);
@@ -22,4 +23,4 @@ class WebXRElement extends PlattarSceneElement {
     }
 }
 
-module.exports = WebXRElement;
+module.exports = FaceARElement;
