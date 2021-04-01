@@ -12,7 +12,7 @@ class FaceARElement extends PlattarSceneElement {
 
         const shadow = this.attachShadow({ mode: 'open' });
 
-        iframe.setAttribute("src", iframe.getAttribute("src") + "/facear.html?scene_id=" + nodes.sceneID);
+        iframe.setAttribute("src", iframe.getAttribute("src") + "facear.html?scene_id=" + nodes.sceneID);
         iframe.setAttribute("allow", "camera *");
 
         if (style) {

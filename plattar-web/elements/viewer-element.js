@@ -12,7 +12,7 @@ class ViewerElement extends PlattarSceneElement {
 
         const shadow = this.attachShadow({ mode: 'open' });
 
-        iframe.setAttribute("src", iframe.getAttribute("src") + "/viewer.html?scene_id=" + nodes.sceneID);
+        iframe.setAttribute("src", iframe.getAttribute("src") + "viewer.html?scene_id=" + nodes.sceneID);
 
         if (style) {
             shadow.append(style);

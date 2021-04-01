@@ -12,7 +12,7 @@ class WebXRElement extends PlattarSceneElement {
 
         const shadow = this.attachShadow({ mode: 'open' });
 
-        iframe.setAttribute("src", iframe.getAttribute("src") + "/webxr.html?scene_id=" + nodes.sceneID);
+        iframe.setAttribute("src", iframe.getAttribute("src") + "webxr.html?scene_id=" + nodes.sceneID);
 
         if (style) {
             shadow.append(style);

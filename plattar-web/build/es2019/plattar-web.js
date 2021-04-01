@@ -13,7 +13,7 @@ class EditorElement extends PlattarSceneElement {
 
         const shadow = this.attachShadow({ mode: 'open' });
 
-        iframe.setAttribute("src", iframe.getAttribute("src") + "/editor.html?scene_id=" + nodes.sceneID);
+        iframe.setAttribute("src", iframe.getAttribute("src") + "editor.html?scene_id=" + nodes.sceneID);
 
         if (style) {
             shadow.append(style);
@@ -39,7 +39,7 @@ class EWallElement extends PlattarSceneElement {
 
         const shadow = this.attachShadow({ mode: 'open' });
 
-        iframe.setAttribute("src", iframe.getAttribute("src") + "/ewall.html?scene_id=" + nodes.sceneID);
+        iframe.setAttribute("src", iframe.getAttribute("src") + "ewall.html?scene_id=" + nodes.sceneID);
 
         if (style) {
             shadow.append(style);
@@ -65,7 +65,7 @@ class FaceARElement extends PlattarSceneElement {
 
         const shadow = this.attachShadow({ mode: 'open' });
 
-        iframe.setAttribute("src", iframe.getAttribute("src") + "/facear.html?scene_id=" + nodes.sceneID);
+        iframe.setAttribute("src", iframe.getAttribute("src") + "facear.html?scene_id=" + nodes.sceneID);
         iframe.setAttribute("allow", "camera *");
 
         if (style) {
@@ -145,7 +145,7 @@ class ViewerElement extends PlattarSceneElement {
 
         const shadow = this.attachShadow({ mode: 'open' });
 
-        iframe.setAttribute("src", iframe.getAttribute("src") + "/viewer.html?scene_id=" + nodes.sceneID);
+        iframe.setAttribute("src", iframe.getAttribute("src") + "viewer.html?scene_id=" + nodes.sceneID);
 
         if (style) {
             shadow.append(style);
@@ -171,7 +171,7 @@ class WebXRElement extends PlattarSceneElement {
 
         const shadow = this.attachShadow({ mode: 'open' });
 
-        iframe.setAttribute("src", iframe.getAttribute("src") + "/webxr.html?scene_id=" + nodes.sceneID);
+        iframe.setAttribute("src", iframe.getAttribute("src") + "webxr.html?scene_id=" + nodes.sceneID);
 
         if (style) {
             shadow.append(style);
