@@ -1,6 +1,6 @@
 const PlattarSceneElement = require("./plattar-scene-element.js");
 
-class EditorElement extends PlattarSceneElement {
+class WebXRElement extends PlattarSceneElement {
     constructor() {
         super();
     }
@@ -12,7 +12,7 @@ class EditorElement extends PlattarSceneElement {
 
         const shadow = this.attachShadow({ mode: 'open' });
 
-        iframe.setAttribute("src", iframe.getAttribute("src") + "/webxr.html?scene_id=" + nodes.sceneID);
+        iframe.setAttribute("src", iframe.getAttribute("src") + "/facear.html?scene_id=" + nodes.sceneID);
 
         if (style) {
             shadow.append(style);
@@ -22,4 +22,4 @@ class EditorElement extends PlattarSceneElement {
     }
 }
 
-module.exports = EditorElement;
+module.exports = WebXRElement;

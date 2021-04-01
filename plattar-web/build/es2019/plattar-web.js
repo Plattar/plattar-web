@@ -1,4 +1,82 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Plattar = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const PlattarSceneElement = require("./plattar-scene-element.js");
+
+class WebXRElement extends PlattarSceneElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        const nodes = this._setup();
+        const iframe = nodes.iframe;
+        const style = nodes.style;
+
+        const shadow = this.attachShadow({ mode: 'open' });
+
+        iframe.setAttribute("src", iframe.getAttribute("src") + "/editor.html?scene_id=" + nodes.sceneID);
+
+        if (style) {
+            shadow.append(style);
+        }
+
+        shadow.append(iframe);
+    }
+}
+
+module.exports = WebXRElement;
+},{"./plattar-scene-element.js":4}],2:[function(require,module,exports){
+const PlattarSceneElement = require("./plattar-scene-element.js");
+
+class WebXRElement extends PlattarSceneElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        const nodes = this._setup();
+        const iframe = nodes.iframe;
+        const style = nodes.style;
+
+        const shadow = this.attachShadow({ mode: 'open' });
+
+        iframe.setAttribute("src", iframe.getAttribute("src") + "/ewall.html?scene_id=" + nodes.sceneID);
+
+        if (style) {
+            shadow.append(style);
+        }
+
+        shadow.append(iframe);
+    }
+}
+
+module.exports = WebXRElement;
+},{"./plattar-scene-element.js":4}],3:[function(require,module,exports){
+const PlattarSceneElement = require("./plattar-scene-element.js");
+
+class WebXRElement extends PlattarSceneElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        const nodes = this._setup();
+        const iframe = nodes.iframe;
+        const style = nodes.style;
+
+        const shadow = this.attachShadow({ mode: 'open' });
+
+        iframe.setAttribute("src", iframe.getAttribute("src") + "/facear.html?scene_id=" + nodes.sceneID);
+
+        if (style) {
+            shadow.append(style);
+        }
+
+        shadow.append(iframe);
+    }
+}
+
+module.exports = WebXRElement;
+},{"./plattar-scene-element.js":4}],4:[function(require,module,exports){
 const Util = require("../util/util.js");
 
 class PlattarSceneElement extends HTMLElement {
@@ -10,7 +88,7 @@ class PlattarSceneElement extends HTMLElement {
         const sceneID = this.hasAttribute("scene-id") ? this.getAttribute("scene-id") : undefined;
 
         if (sceneID === undefined) {
-            throw new Error("PlattarElement - required attribute \"scene-id\" is missing");
+            throw new Error("PlattarSceneElement - required attribute \"scene-id\" is missing");
         }
 
         const server = this.hasAttribute("server") ? this.getAttribute("server") : "production";
@@ -18,7 +96,7 @@ class PlattarSceneElement extends HTMLElement {
         const serverLocation = Util.getServerLocation(server);
 
         if (serverLocation === undefined) {
-            throw new Error("PlattarElement - attribute \"server\" must be one of \"production\", \"staging\" or \"dev\"");
+            throw new Error("PlattarSceneElement - attribute \"server\" must be one of \"production\", \"staging\" or \"dev\"");
         }
 
         // clear to proceed
@@ -51,8 +129,8 @@ class PlattarSceneElement extends HTMLElement {
 }
 
 module.exports = PlattarSceneElement;
-},{"../util/util.js":5}],2:[function(require,module,exports){
-const PlattarSceneElement = require("./plattar-element.js");
+},{"../util/util.js":8}],5:[function(require,module,exports){
+const PlattarSceneElement = require("./plattar-scene-element.js");
 
 class ViewerElement extends PlattarSceneElement {
     constructor() {
@@ -77,10 +155,10 @@ class ViewerElement extends PlattarSceneElement {
 }
 
 module.exports = ViewerElement;
-},{"./plattar-element.js":1}],3:[function(require,module,exports){
-const PlattarSceneElement = require("./plattar-element.js");
+},{"./plattar-scene-element.js":4}],6:[function(require,module,exports){
+const PlattarSceneElement = require("./plattar-scene-element.js");
 
-class WebXRElement extends PlattarSceneElement {
+class EditorElement extends PlattarSceneElement {
     constructor() {
         super();
     }
@@ -102,15 +180,21 @@ class WebXRElement extends PlattarSceneElement {
     }
 }
 
-module.exports = WebXRElement;
-},{"./plattar-element.js":1}],4:[function(require,module,exports){
+module.exports = EditorElement;
+},{"./plattar-scene-element.js":4}],7:[function(require,module,exports){
 "use strict";
 const WebXRElement = require("./elements/webxr-element.js");
 const ViewerElement = require("./elements/viewer-element.js");
+const EWallElement = require("./elements/ewall-element.js");
+const FaceARElement = require("./elements/facear-element.js");
+const EditorElement = require("./elements/editor-element.js");
 
 customElements.define("plattar-webxr", WebXRElement);
 customElements.define("plattar-viewer", ViewerElement);
-},{"./elements/viewer-element.js":2,"./elements/webxr-element.js":3}],5:[function(require,module,exports){
+customElements.define("plattar-editor", EditorElement);
+customElements.define("plattar-facear", FaceARElement);
+customElements.define("plattar-8wall", EWallElement);
+},{"./elements/editor-element.js":1,"./elements/ewall-element.js":2,"./elements/facear-element.js":3,"./elements/viewer-element.js":5,"./elements/webxr-element.js":6}],8:[function(require,module,exports){
 class Util {
     static getServerLocation(server) {
         switch (server) {
@@ -124,5 +208,5 @@ class Util {
 }
 
 module.exports = Util;
-},{}]},{},[4])(4)
+},{}]},{},[7])(7)
 });
