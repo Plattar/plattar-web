@@ -9,7 +9,7 @@ class PlattarSceneElement extends HTMLElement {
         const sceneID = this.hasAttribute("scene-id") ? this.getAttribute("scene-id") : undefined;
 
         if (sceneID === undefined) {
-            throw new Error("PlattarElement - required attribute \"scene-id\" is missing");
+            throw new Error("PlattarSceneElement - required attribute \"scene-id\" is missing");
         }
 
         const server = this.hasAttribute("server") ? this.getAttribute("server") : "production";
@@ -17,7 +17,7 @@ class PlattarSceneElement extends HTMLElement {
         const serverLocation = Util.getServerLocation(server);
 
         if (serverLocation === undefined) {
-            throw new Error("PlattarElement - attribute \"server\" must be one of \"production\", \"staging\" or \"dev\"");
+            throw new Error("PlattarSceneElement - attribute \"server\" must be one of \"production\", \"staging\" or \"dev\"");
         }
 
         // clear to proceed

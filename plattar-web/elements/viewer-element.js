@@ -1,4 +1,4 @@
-const PlattarSceneElement = require("./plattar-element.js");
+const PlattarSceneElement = require("./plattar-scene-element.js");
 
 class ViewerElement extends PlattarSceneElement {
     constructor() {
