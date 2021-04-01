@@ -1,6 +1,6 @@
 const Util = require("../util/util.js");
 
-class WebXRElement extends HTMLElement {
+class ViewerElement extends HTMLElement {
     constructor() {
         super();
     }
@@ -9,10 +9,8 @@ class WebXRElement extends HTMLElement {
         const shadow = this.attachShadow({ mode: 'open' });
         const sceneID = this.hasAttribute("scene-id") ? this.getAttribute("scene-id") : undefined;
 
-        console.log(sceneID);
-
         if (sceneID === undefined) {
-            throw new Error("WebXRElement - required attribute \"scene-id\" is missing");
+            throw new Error("ViewerElement - required attribute \"scene-id\" is missing");
         }
 
         const server = this.hasAttribute("server") ? this.getAttribute("server") : "production";
@@ -20,7 +18,7 @@ class WebXRElement extends HTMLElement {
         const serverLocation = Util.getServerLocation(server);
 
         if (serverLocation === undefined) {
-            throw new Error("WebXRElement - attribute \"server\" must be one of \"production\", \"staging\" or \"dev\"");
+            throw new Error("ViewerElement - attribute \"server\" must be one of \"production\", \"staging\" or \"dev\"");
         }
 
         // clear to proceed
@@ -28,10 +26,10 @@ class WebXRElement extends HTMLElement {
 
         iframe.setAttribute("width", this.hasAttribute("width") ? this.getAttribute("width") : "400");
         iframe.setAttribute("height", this.hasAttribute("height") ? this.getAttribute("height") : "400");
-        iframe.setAttribute("src", serverLocation + "/webxr.html?scene_id=" + sceneID);
+        iframe.setAttribute("src", serverLocation + "/viewer.html?scene_id=" + sceneID);
 
         shadow.append(iframe);
     }
 }
 
-module.exports = WebXRElement;
+module.exports = ViewerElement;
