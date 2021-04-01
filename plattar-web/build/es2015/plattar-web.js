@@ -130,44 +130,39 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         var _super = _createSuper(WebXRElement);
 
         function WebXRElement() {
-          var _this;
-
           _classCallCheck(this, WebXRElement);
 
-          _this = _super.call(this);
-
-          _this.attachShadow({
-            mode: 'open'
-          });
-
-          var sceneID = _this.hasAttribute("scene-id") ? _this.getAttribute("scene-id") : undefined;
-
-          if (sceneID === undefined) {
-            throw new Error("WebXRElement - required attribute \"scene-id\" is missing");
-          }
-
-          var server = _this.hasAttribute("server") ? _this.getAttribute("server") : "production";
-          var serverLocation = Util.getServerLocation(server);
-
-          if (serverLocation === undefined) {
-            throw new Error("WebXRElement - attribute \"server\" must be one of \"production\", \"staging\" or \"dev\"");
-          } // clear to proceed
-
-
-          var iframe = document.createElement("iframe");
-
-          if (_this.hasAttribute("id")) {
-            iframe.setAttribute("id", _this.getAttribute("id"));
-          }
-
-          iframe.setAttribute("width", _this.hasAttribute("width") ? _this.getAttribute("width") : "400");
-          iframe.setAttribute("height", _this.hasAttribute("height") ? _this.getAttribute("height") : "400");
-          iframe.setAttribute("src", serverLocation + "/webxr.html?scene_id=" + sceneID);
-
-          _this.shadowRoot.append(iframe);
-
-          return _this;
+          return _super.call(this);
         }
+
+        _createClass(WebXRElement, [{
+          key: "connectedCallback",
+          value: function connectedCallback() {
+            var shadow = this.attachShadow({
+              mode: 'open'
+            });
+            var sceneID = this.hasAttribute("scene-id") ? this.getAttribute("scene-id") : undefined;
+            console.log(sceneID);
+
+            if (sceneID === undefined) {
+              throw new Error("WebXRElement - required attribute \"scene-id\" is missing");
+            }
+
+            var server = this.hasAttribute("server") ? this.getAttribute("server") : "production";
+            var serverLocation = Util.getServerLocation(server);
+
+            if (serverLocation === undefined) {
+              throw new Error("WebXRElement - attribute \"server\" must be one of \"production\", \"staging\" or \"dev\"");
+            } // clear to proceed
+
+
+            var iframe = document.createElement("iframe");
+            iframe.setAttribute("width", this.hasAttribute("width") ? this.getAttribute("width") : "400");
+            iframe.setAttribute("height", this.hasAttribute("height") ? this.getAttribute("height") : "400");
+            iframe.setAttribute("src", serverLocation + "/webxr.html?scene_id=" + sceneID);
+            shadow.append(iframe);
+          }
+        }]);
 
         return WebXRElement;
       }( /*#__PURE__*/_wrapNativeSuper(HTMLElement));
