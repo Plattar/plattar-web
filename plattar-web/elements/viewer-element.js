@@ -1,32 +1,22 @@
-const Util = require("../util/util.js");
+const PlattarSceneElement = require("./plattar-element.js");
 
-class ViewerElement extends HTMLElement {
+class ViewerElement extends PlattarSceneElement {
     constructor() {
         super();
     }
 
     connectedCallback() {
+        const nodes = this._setup();
+        const iframe = nodes.iframe;
+        const style = nodes.style;
+
         const shadow = this.attachShadow({ mode: 'open' });
-        const sceneID = this.hasAttribute("scene-id") ? this.getAttribute("scene-id") : undefined;
 
-        if (sceneID === undefined) {
-            throw new Error("ViewerElement - required attribute \"scene-id\" is missing");
+        iframe.setAttribute("src", iframe.getAttribute("src") + "/viewer.html?scene_id=" + nodes.sceneID);
+
+        if (style) {
+            shadow.append(style);
         }
-
-        const server = this.hasAttribute("server") ? this.getAttribute("server") : "production";
-
-        const serverLocation = Util.getServerLocation(server);
-
-        if (serverLocation === undefined) {
-            throw new Error("ViewerElement - attribute \"server\" must be one of \"production\", \"staging\" or \"dev\"");
-        }
-
-        // clear to proceed
-        const iframe = document.createElement("iframe");
-
-        iframe.setAttribute("width", this.hasAttribute("width") ? this.getAttribute("width") : "400");
-        iframe.setAttribute("height", this.hasAttribute("height") ? this.getAttribute("height") : "400");
-        iframe.setAttribute("src", serverLocation + "/viewer.html?scene_id=" + sceneID);
 
         shadow.append(iframe);
     }

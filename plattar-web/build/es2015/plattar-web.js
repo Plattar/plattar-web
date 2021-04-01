@@ -86,102 +86,148 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     1: [function (require, module, exports) {
       var Util = require("../util/util.js");
 
-      var ViewerElement = /*#__PURE__*/function (_HTMLElement) {
-        _inherits(ViewerElement, _HTMLElement);
+      var PlattarSceneElement = /*#__PURE__*/function (_HTMLElement) {
+        _inherits(PlattarSceneElement, _HTMLElement);
 
-        var _super = _createSuper(ViewerElement);
+        var _super = _createSuper(PlattarSceneElement);
+
+        function PlattarSceneElement() {
+          _classCallCheck(this, PlattarSceneElement);
+
+          return _super.call(this);
+        }
+
+        _createClass(PlattarSceneElement, [{
+          key: "_setup",
+          value: function _setup() {
+            var sceneID = this.hasAttribute("scene-id") ? this.getAttribute("scene-id") : undefined;
+
+            if (sceneID === undefined) {
+              throw new Error("PlattarElement - required attribute \"scene-id\" is missing");
+            }
+
+            var server = this.hasAttribute("server") ? this.getAttribute("server") : "production";
+            var serverLocation = Util.getServerLocation(server);
+
+            if (serverLocation === undefined) {
+              throw new Error("PlattarElement - attribute \"server\" must be one of \"production\", \"staging\" or \"dev\"");
+            } // clear to proceed
+
+
+            var iframe = document.createElement("iframe");
+            iframe.setAttribute("width", this.hasAttribute("width") ? this.getAttribute("width") : "400");
+            iframe.setAttribute("height", this.hasAttribute("height") ? this.getAttribute("height") : "400");
+            iframe.setAttribute("src", serverLocation);
+
+            if (!this.hasAttribute("fullscreen")) {
+              return {
+                iframe: iframe,
+                sceneID: sceneID,
+                style: undefined
+              };
+            }
+
+            var style = document.createElement('style');
+            style.textContent = "\n            ._PlattarFullScreen {\n                width: 100%;\n                height: 100%;\n                position: absolute;\n                top: 0;\n                left: 0;\n            }\n        ";
+            iframe.className = "_PlattarFullScreen";
+            return {
+              iframe: iframe,
+              sceneID: sceneID,
+              style: style
+            };
+          }
+        }]);
+
+        return PlattarSceneElement;
+      }( /*#__PURE__*/_wrapNativeSuper(HTMLElement));
+
+      module.exports = PlattarSceneElement;
+    }, {
+      "../util/util.js": 5
+    }],
+    2: [function (require, module, exports) {
+      var PlattarSceneElement = require("./plattar-element.js");
+
+      var ViewerElement = /*#__PURE__*/function (_PlattarSceneElement) {
+        _inherits(ViewerElement, _PlattarSceneElement);
+
+        var _super2 = _createSuper(ViewerElement);
 
         function ViewerElement() {
           _classCallCheck(this, ViewerElement);
 
-          return _super.call(this);
+          return _super2.call(this);
         }
 
         _createClass(ViewerElement, [{
           key: "connectedCallback",
           value: function connectedCallback() {
+            var nodes = this._setup();
+
+            var iframe = nodes.iframe;
+            var style = nodes.style;
             var shadow = this.attachShadow({
               mode: 'open'
             });
-            var sceneID = this.hasAttribute("scene-id") ? this.getAttribute("scene-id") : undefined;
+            iframe.setAttribute("src", iframe.getAttribute("src") + "/viewer.html?scene_id=" + nodes.sceneID);
 
-            if (sceneID === undefined) {
-              throw new Error("ViewerElement - required attribute \"scene-id\" is missing");
+            if (style) {
+              shadow.append(style);
             }
 
-            var server = this.hasAttribute("server") ? this.getAttribute("server") : "production";
-            var serverLocation = Util.getServerLocation(server);
-
-            if (serverLocation === undefined) {
-              throw new Error("ViewerElement - attribute \"server\" must be one of \"production\", \"staging\" or \"dev\"");
-            } // clear to proceed
-
-
-            var iframe = document.createElement("iframe");
-            iframe.setAttribute("width", this.hasAttribute("width") ? this.getAttribute("width") : "400");
-            iframe.setAttribute("height", this.hasAttribute("height") ? this.getAttribute("height") : "400");
-            iframe.setAttribute("src", serverLocation + "/viewer.html?scene_id=" + sceneID);
             shadow.append(iframe);
           }
         }]);
 
         return ViewerElement;
-      }( /*#__PURE__*/_wrapNativeSuper(HTMLElement));
+      }(PlattarSceneElement);
 
       module.exports = ViewerElement;
     }, {
-      "../util/util.js": 4
+      "./plattar-element.js": 1
     }],
-    2: [function (require, module, exports) {
-      var Util = require("../util/util.js");
+    3: [function (require, module, exports) {
+      var PlattarSceneElement = require("./plattar-element.js");
 
-      var WebXRElement = /*#__PURE__*/function (_HTMLElement2) {
-        _inherits(WebXRElement, _HTMLElement2);
+      var WebXRElement = /*#__PURE__*/function (_PlattarSceneElement2) {
+        _inherits(WebXRElement, _PlattarSceneElement2);
 
-        var _super2 = _createSuper(WebXRElement);
+        var _super3 = _createSuper(WebXRElement);
 
         function WebXRElement() {
           _classCallCheck(this, WebXRElement);
 
-          return _super2.call(this);
+          return _super3.call(this);
         }
 
         _createClass(WebXRElement, [{
           key: "connectedCallback",
           value: function connectedCallback() {
+            var nodes = this._setup();
+
+            var iframe = nodes.iframe;
+            var style = nodes.style;
             var shadow = this.attachShadow({
               mode: 'open'
             });
-            var sceneID = this.hasAttribute("scene-id") ? this.getAttribute("scene-id") : undefined;
+            iframe.setAttribute("src", iframe.getAttribute("src") + "/webxr.html?scene_id=" + nodes.sceneID);
 
-            if (sceneID === undefined) {
-              throw new Error("WebXRElement - required attribute \"scene-id\" is missing");
+            if (style) {
+              shadow.append(style);
             }
 
-            var server = this.hasAttribute("server") ? this.getAttribute("server") : "production";
-            var serverLocation = Util.getServerLocation(server);
-
-            if (serverLocation === undefined) {
-              throw new Error("WebXRElement - attribute \"server\" must be one of \"production\", \"staging\" or \"dev\"");
-            } // clear to proceed
-
-
-            var iframe = document.createElement("iframe");
-            iframe.setAttribute("width", this.hasAttribute("width") ? this.getAttribute("width") : "400");
-            iframe.setAttribute("height", this.hasAttribute("height") ? this.getAttribute("height") : "400");
-            iframe.setAttribute("src", serverLocation + "/webxr.html?scene_id=" + sceneID);
             shadow.append(iframe);
           }
         }]);
 
         return WebXRElement;
-      }( /*#__PURE__*/_wrapNativeSuper(HTMLElement));
+      }(PlattarSceneElement);
 
       module.exports = WebXRElement;
     }, {
-      "../util/util.js": 4
+      "./plattar-element.js": 1
     }],
-    3: [function (require, module, exports) {
+    4: [function (require, module, exports) {
       "use strict";
 
       var WebXRElement = require("./elements/webxr-element.js");
@@ -191,10 +237,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       customElements.define("plattar-webxr", WebXRElement);
       customElements.define("plattar-viewer", ViewerElement);
     }, {
-      "./elements/viewer-element.js": 1,
-      "./elements/webxr-element.js": 2
+      "./elements/viewer-element.js": 2,
+      "./elements/webxr-element.js": 3
     }],
-    4: [function (require, module, exports) {
+    5: [function (require, module, exports) {
       var Util = /*#__PURE__*/function () {
         function Util() {
           _classCallCheck(this, Util);
@@ -223,6 +269,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       module.exports = Util;
     }, {}]
-  }, {}, [3])(3);
+  }, {}, [4])(4);
 });
 
