@@ -224,6 +224,7 @@ class WebXRElement extends PlattarSceneElement {
 module.exports = WebXRElement;
 },{"./plattar-scene-element.js":4}],7:[function(require,module,exports){
 "use strict";
+const Messenger = require("@plattar/context-messenger");
 const WebXRElement = require("./elements/webxr-element.js");
 const ViewerElement = require("./elements/viewer-element.js");
 const EWallElement = require("./elements/ewall-element.js");
@@ -235,7 +236,9 @@ customElements.define("plattar-viewer", ViewerElement);
 customElements.define("plattar-editor", EditorElement);
 customElements.define("plattar-facear", FaceARElement);
 customElements.define("plattar-8wall", EWallElement);
-},{"./elements/editor-element.js":1,"./elements/ewall-element.js":2,"./elements/facear-element.js":3,"./elements/viewer-element.js":5,"./elements/webxr-element.js":6}],8:[function(require,module,exports){
+
+module.exports = Messenger;
+},{"./elements/editor-element.js":1,"./elements/ewall-element.js":2,"./elements/facear-element.js":3,"./elements/viewer-element.js":5,"./elements/webxr-element.js":6,"@plattar/context-messenger":8}],8:[function(require,module,exports){
 "use strict";
 const Messenger = require("./messenger/messenger.js");
 const Memory = require("./memory/memory.js");

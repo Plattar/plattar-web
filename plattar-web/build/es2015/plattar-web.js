@@ -400,6 +400,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     7: [function (require, module, exports) {
       "use strict";
 
+      var Messenger = require("@plattar/context-messenger");
+
       var WebXRElement = require("./elements/webxr-element.js");
 
       var ViewerElement = require("./elements/viewer-element.js");
@@ -415,12 +417,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       customElements.define("plattar-editor", EditorElement);
       customElements.define("plattar-facear", FaceARElement);
       customElements.define("plattar-8wall", EWallElement);
+      module.exports = Messenger;
     }, {
       "./elements/editor-element.js": 1,
       "./elements/ewall-element.js": 2,
       "./elements/facear-element.js": 3,
       "./elements/viewer-element.js": 5,
-      "./elements/webxr-element.js": 6
+      "./elements/webxr-element.js": 6,
+      "@plattar/context-messenger": 8
     }],
     8: [function (require, module, exports) {
       "use strict";
