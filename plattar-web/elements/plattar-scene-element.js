@@ -1,4 +1,5 @@
 const Util = require("../util/util.js");
+const Messenger = require("@plattar/context-messenger");
 
 class PlattarSceneElement extends HTMLElement {
     constructor() {
@@ -35,6 +36,7 @@ class PlattarSceneElement extends HTMLElement {
 
         this.__internal__iframe = iframe;
 
+        iframe.setAttribute("id", sceneID);
         iframe.setAttribute("width", this.hasAttribute("width") ? this.getAttribute("width") : "500px");
         iframe.setAttribute("height", this.hasAttribute("height") ? this.getAttribute("height") : "500px");
         iframe.setAttribute("src", serverLocation + embedLocation + "?scene_id=" + sceneID);
@@ -71,6 +73,10 @@ class PlattarSceneElement extends HTMLElement {
         shadow.append(style);
 
         return iframe;
+    }
+
+    get messenger() {
+        return Messenger.messenger[this.sceneID];
     }
 
     get sceneID() {

@@ -37,7 +37,9 @@
     "url": "https://github.com/Plattar/plattar-web/issues"
   },
   "homepage": "https://www.plattar.com",
-  "dependencies": {},
+  "dependencies": {
+    "@plattar/context-messenger": "^1.96.4"
+  },
   "devDependencies": {
     "@babel/cli": "^7.13.14",
     "@babel/core": "^7.13.14",
