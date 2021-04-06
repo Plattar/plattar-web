@@ -18,6 +18,21 @@ class Util {
             default: return undefined;
         }
     }
+
+    static getPermissionString(permissions) {
+        if (permissions && permissions.length > 0) {
+
+            let permissionString = permissions[0];
+
+            for (let i = 1; i < permissions.length; i++) {
+                permissionString += "; " + permissions[i];
+            }
+
+            return permissionString;
+        }
+
+        return undefined;
+    }
 }
 
 module.exports = Util;

@@ -40,6 +40,16 @@ class PlattarSceneElement extends HTMLElement {
         iframe.setAttribute("src", serverLocation + embedLocation + "?scene_id=" + sceneID);
         iframe.setAttribute("frameBorder", "0");
 
+        const permissions = Util.getPermissionString(this.permissions);
+
+        if (permissions) {
+            iframe.setAttribute("allow", permissions);
+        }
+
+        const shadow = this.attachShadow({ mode: 'open' });
+
+        shadow.append(iframe);
+
         if (!this.hasAttribute("fullscreen")) {
             return iframe;
         }
@@ -57,6 +67,8 @@ class PlattarSceneElement extends HTMLElement {
         `;
 
         iframe.className = "_PlattarFullScreen";
+
+        shadow.append(style);
 
         return iframe;
     }
@@ -105,6 +117,10 @@ class PlattarSceneElement extends HTMLElement {
 
     set height(value) {
         this.__internal__iframe.setAttribute("height", value);
+    }
+
+    get permissions() {
+        return [];
     }
 }
 

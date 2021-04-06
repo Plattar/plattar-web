@@ -5,13 +5,12 @@ class FaceARElement extends PlattarSceneElement {
         super();
     }
 
+    get permissions() {
+        return ["camera", "autoplay"];
+    }
+
     connectedCallback() {
-        const iframe = this._setup("facear");
-        const shadow = this.attachShadow({ mode: 'open' });
-
-        iframe.setAttribute("allow", "camera; autoplay");
-
-        shadow.append(iframe);
+        this._setup("facear");
     }
 }
 

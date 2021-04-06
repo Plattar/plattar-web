@@ -6,13 +6,12 @@ class EditorElement extends PlattarSceneElement {
         super();
     }
 
+    get permissions() {
+        return ["autoplay"];
+    }
+
     connectedCallback() {
-        const iframe = this._setup("editor");
-        const shadow = this.attachShadow({ mode: 'open' });
-
-        iframe.setAttribute("allow", "autoplay");
-
-        shadow.append(iframe);
+        this._setup("editor");
     }
 }
 
@@ -25,13 +24,12 @@ class EWallElement extends PlattarSceneElement {
         super();
     }
 
+    get permissions() {
+        return ["camera", "autoplay", "xr-spatial-tracking"];
+    }
+
     connectedCallback() {
-        const iframe = this._setup("ewall");
-        const shadow = this.attachShadow({ mode: 'open' });
-
-        iframe.setAttribute("allow", "camera; autoplay; xr-spatial-tracking");
-
-        shadow.append(iframe);
+        this._setup("ewall");
     }
 }
 
@@ -44,13 +42,12 @@ class FaceARElement extends PlattarSceneElement {
         super();
     }
 
+    get permissions() {
+        return ["camera", "autoplay"];
+    }
+
     connectedCallback() {
-        const iframe = this._setup("facear");
-        const shadow = this.attachShadow({ mode: 'open' });
-
-        iframe.setAttribute("allow", "camera; autoplay");
-
-        shadow.append(iframe);
+        this._setup("facear");
     }
 }
 
@@ -98,6 +95,16 @@ class PlattarSceneElement extends HTMLElement {
         iframe.setAttribute("src", serverLocation + embedLocation + "?scene_id=" + sceneID);
         iframe.setAttribute("frameBorder", "0");
 
+        const permissions = Util.getPermissionString(this.permissions);
+
+        if (permissions) {
+            iframe.setAttribute("allow", permissions);
+        }
+
+        const shadow = this.attachShadow({ mode: 'open' });
+
+        shadow.append(iframe);
+
         if (!this.hasAttribute("fullscreen")) {
             return iframe;
         }
@@ -116,11 +123,27 @@ class PlattarSceneElement extends HTMLElement {
 
         iframe.className = "_PlattarFullScreen";
 
+        shadow.append(style);
+
         return iframe;
     }
 
     get sceneID() {
         return this.__internal__sceneID;
+    }
+
+    set sceneID(value) {
+        this.__internal__sceneID = value;
+
+        this.setAttribute("scene-id", value);
+
+        const iframe = this.__internal__iframe;
+
+        const serverLocation = this.location;
+        const embedLocation = Util.getElementLocation(this.elementType);
+        const sceneID = this.hasAttribute("scene-id") ? this.getAttribute("scene-id") : undefined;
+
+        iframe.setAttribute("src", serverLocation + embedLocation + "?scene_id=" + sceneID);
     }
 
     get server() {
@@ -150,6 +173,10 @@ class PlattarSceneElement extends HTMLElement {
     set height(value) {
         this.__internal__iframe.setAttribute("height", value);
     }
+
+    get permissions() {
+        return [];
+    }
 }
 
 module.exports = PlattarSceneElement;
@@ -161,13 +188,12 @@ class ViewerElement extends PlattarSceneElement {
         super();
     }
 
+    get permissions() {
+        return ["autoplay"];
+    }
+
     connectedCallback() {
-        const iframe = this._setup("viewer");
-        const shadow = this.attachShadow({ mode: 'open' });
-
-        iframe.setAttribute("allow", "autoplay");
-
-        shadow.append(iframe);
+        this._setup("viewer");
     }
 }
 
@@ -180,13 +206,12 @@ class WebXRElement extends PlattarSceneElement {
         super();
     }
 
+    get permissions() {
+        return ["camera", "autoplay", "xr-spatial-tracking"];
+    }
+
     connectedCallback() {
-        const iframe = this._setup("webxr");
-        const shadow = this.attachShadow({ mode: 'open' });
-
-        iframe.setAttribute("allow", "camera; autoplay; xr-spatial-tracking");
-
-        shadow.append(iframe);
+        this._setup("webxr");
     }
 }
 
@@ -224,6 +249,21 @@ class Util {
             case "webxr": return "webxr.html";
             default: return undefined;
         }
+    }
+
+    static getPermissionString(permissions) {
+        if (permissions && permissions.length > 0) {
+
+            let permissionString = permissions[0];
+
+            for (let i = 1; i < permissions.length; i++) {
+                permissionString += "; " + permissions[i];
+            }
+
+            return permissionString;
+        }
+
+        return undefined;
     }
 }
 

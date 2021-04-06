@@ -5,13 +5,12 @@ class ViewerElement extends PlattarSceneElement {
         super();
     }
 
+    get permissions() {
+        return ["autoplay"];
+    }
+
     connectedCallback() {
-        const iframe = this._setup("viewer");
-        const shadow = this.attachShadow({ mode: 'open' });
-
-        iframe.setAttribute("allow", "autoplay");
-
-        shadow.append(iframe);
+        this._setup("viewer");
     }
 }
 

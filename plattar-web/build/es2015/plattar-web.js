@@ -98,15 +98,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         }
 
         _createClass(EditorElement, [{
+          key: "permissions",
+          get: function get() {
+            return ["autoplay"];
+          }
+        }, {
           key: "connectedCallback",
           value: function connectedCallback() {
-            var iframe = this._setup("editor");
-
-            var shadow = this.attachShadow({
-              mode: 'open'
-            });
-            iframe.setAttribute("allow", "autoplay");
-            shadow.append(iframe);
+            this._setup("editor");
           }
         }]);
 
@@ -132,15 +131,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         }
 
         _createClass(EWallElement, [{
+          key: "permissions",
+          get: function get() {
+            return ["camera", "autoplay", "xr-spatial-tracking"];
+          }
+        }, {
           key: "connectedCallback",
           value: function connectedCallback() {
-            var iframe = this._setup("ewall");
-
-            var shadow = this.attachShadow({
-              mode: 'open'
-            });
-            iframe.setAttribute("allow", "camera; autoplay; xr-spatial-tracking");
-            shadow.append(iframe);
+            this._setup("ewall");
           }
         }]);
 
@@ -166,15 +164,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         }
 
         _createClass(FaceARElement, [{
+          key: "permissions",
+          get: function get() {
+            return ["camera", "autoplay"];
+          }
+        }, {
           key: "connectedCallback",
           value: function connectedCallback() {
-            var iframe = this._setup("facear");
-
-            var shadow = this.attachShadow({
-              mode: 'open'
-            });
-            iframe.setAttribute("allow", "camera; autoplay");
-            shadow.append(iframe);
+            this._setup("facear");
           }
         }]);
 
@@ -231,6 +228,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             iframe.setAttribute("height", this.hasAttribute("height") ? this.getAttribute("height") : "500px");
             iframe.setAttribute("src", serverLocation + embedLocation + "?scene_id=" + sceneID);
             iframe.setAttribute("frameBorder", "0");
+            var permissions = Util.getPermissionString(this.permissions);
+
+            if (permissions) {
+              iframe.setAttribute("allow", permissions);
+            }
+
+            var shadow = this.attachShadow({
+              mode: 'open'
+            });
+            shadow.append(iframe);
 
             if (!this.hasAttribute("fullscreen")) {
               return iframe;
@@ -239,12 +246,22 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             var style = document.createElement('style');
             style.textContent = "\n            ._PlattarFullScreen {\n                width: 100%;\n                height: 100%;\n                position: absolute;\n                top: 0;\n                left: 0;\n            }\n        ";
             iframe.className = "_PlattarFullScreen";
+            shadow.append(style);
             return iframe;
           }
         }, {
           key: "sceneID",
           get: function get() {
             return this.__internal__sceneID;
+          },
+          set: function set(value) {
+            this.__internal__sceneID = value;
+            this.setAttribute("scene-id", value);
+            var iframe = this.__internal__iframe;
+            var serverLocation = this.location;
+            var embedLocation = Util.getElementLocation(this.elementType);
+            var sceneID = this.hasAttribute("scene-id") ? this.getAttribute("scene-id") : undefined;
+            iframe.setAttribute("src", serverLocation + embedLocation + "?scene_id=" + sceneID);
           }
         }, {
           key: "server",
@@ -277,6 +294,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           set: function set(value) {
             this.__internal__iframe.setAttribute("height", value);
           }
+        }, {
+          key: "permissions",
+          get: function get() {
+            return [];
+          }
         }]);
 
         return PlattarSceneElement;
@@ -301,15 +323,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         }
 
         _createClass(ViewerElement, [{
+          key: "permissions",
+          get: function get() {
+            return ["autoplay"];
+          }
+        }, {
           key: "connectedCallback",
           value: function connectedCallback() {
-            var iframe = this._setup("viewer");
-
-            var shadow = this.attachShadow({
-              mode: 'open'
-            });
-            iframe.setAttribute("allow", "autoplay");
-            shadow.append(iframe);
+            this._setup("viewer");
           }
         }]);
 
@@ -335,15 +356,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         }
 
         _createClass(WebXRElement, [{
+          key: "permissions",
+          get: function get() {
+            return ["camera", "autoplay", "xr-spatial-tracking"];
+          }
+        }, {
           key: "connectedCallback",
           value: function connectedCallback() {
-            var iframe = this._setup("webxr");
-
-            var shadow = this.attachShadow({
-              mode: 'open'
-            });
-            iframe.setAttribute("allow", "camera; autoplay; xr-spatial-tracking");
-            shadow.append(iframe);
+            this._setup("webxr");
           }
         }]);
 
@@ -424,6 +444,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
               default:
                 return undefined;
             }
+          }
+        }, {
+          key: "getPermissionString",
+          value: function getPermissionString(permissions) {
+            if (permissions && permissions.length > 0) {
+              var permissionString = permissions[0];
+
+              for (var i = 1; i < permissions.length; i++) {
+                permissionString += "; " + permissions[i];
+              }
+
+              return permissionString;
+            }
+
+            return undefined;
           }
         }]);
 

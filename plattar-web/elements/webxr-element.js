@@ -5,13 +5,12 @@ class WebXRElement extends PlattarSceneElement {
         super();
     }
 
+    get permissions() {
+        return ["camera", "autoplay", "xr-spatial-tracking"];
+    }
+
     connectedCallback() {
-        const iframe = this._setup("webxr");
-        const shadow = this.attachShadow({ mode: 'open' });
-
-        iframe.setAttribute("allow", "camera; autoplay; xr-spatial-tracking");
-
-        shadow.append(iframe);
+        this._setup("webxr");
     }
 }
 

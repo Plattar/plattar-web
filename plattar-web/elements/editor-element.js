@@ -5,13 +5,12 @@ class EditorElement extends PlattarSceneElement {
         super();
     }
 
+    get permissions() {
+        return ["autoplay"];
+    }
+
     connectedCallback() {
-        const iframe = this._setup("editor");
-        const shadow = this.attachShadow({ mode: 'open' });
-
-        iframe.setAttribute("allow", "autoplay");
-
-        shadow.append(iframe);
+        this._setup("editor");
     }
 }
 
