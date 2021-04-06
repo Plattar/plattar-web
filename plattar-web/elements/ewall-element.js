@@ -13,6 +13,7 @@ class EWallElement extends PlattarSceneElement {
         const shadow = this.attachShadow({ mode: 'open' });
 
         iframe.setAttribute("src", iframe.getAttribute("src") + "ewall.html?scene_id=" + nodes.sceneID);
+        iframe.setAttribute("allow", "camera; autoplay; xr-spatial-tracking");
 
         if (style) {
             shadow.append(style);

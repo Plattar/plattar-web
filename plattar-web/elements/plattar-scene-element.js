@@ -26,6 +26,7 @@ class PlattarSceneElement extends HTMLElement {
         iframe.setAttribute("width", this.hasAttribute("width") ? this.getAttribute("width") : "400");
         iframe.setAttribute("height", this.hasAttribute("height") ? this.getAttribute("height") : "400");
         iframe.setAttribute("src", serverLocation);
+        iframe.setAttribute("frameBorder", "0");
 
         if (!this.hasAttribute("fullscreen")) {
             return { iframe: iframe, sceneID: sceneID, style: undefined };
