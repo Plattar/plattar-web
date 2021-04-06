@@ -100,19 +100,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         _createClass(EditorElement, [{
           key: "connectedCallback",
           value: function connectedCallback() {
-            var nodes = this._setup();
+            var iframe = this._setup("editor");
 
-            var iframe = nodes.iframe;
-            var style = nodes.style;
             var shadow = this.attachShadow({
               mode: 'open'
             });
-            iframe.setAttribute("src", iframe.getAttribute("src") + "editor.html?scene_id=" + nodes.sceneID);
-
-            if (style) {
-              shadow.append(style);
-            }
-
+            iframe.setAttribute("allow", "autoplay");
             shadow.append(iframe);
           }
         }]);
@@ -141,19 +134,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         _createClass(EWallElement, [{
           key: "connectedCallback",
           value: function connectedCallback() {
-            var nodes = this._setup();
+            var iframe = this._setup("ewall");
 
-            var iframe = nodes.iframe;
-            var style = nodes.style;
             var shadow = this.attachShadow({
               mode: 'open'
             });
-            iframe.setAttribute("src", iframe.getAttribute("src") + "ewall.html?scene_id=" + nodes.sceneID);
-
-            if (style) {
-              shadow.append(style);
-            }
-
+            iframe.setAttribute("allow", "camera; autoplay; xr-spatial-tracking");
             shadow.append(iframe);
           }
         }]);
@@ -182,20 +168,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         _createClass(FaceARElement, [{
           key: "connectedCallback",
           value: function connectedCallback() {
-            var nodes = this._setup();
+            var iframe = this._setup("facear");
 
-            var iframe = nodes.iframe;
-            var style = nodes.style;
             var shadow = this.attachShadow({
               mode: 'open'
             });
-            iframe.setAttribute("src", iframe.getAttribute("src") + "facear.html?scene_id=" + nodes.sceneID);
-            iframe.setAttribute("allow", "camera *");
-
-            if (style) {
-              shadow.append(style);
-            }
-
+            iframe.setAttribute("allow", "camera; autoplay");
             shadow.append(iframe);
           }
         }]);
@@ -223,7 +201,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
         _createClass(PlattarSceneElement, [{
           key: "_setup",
-          value: function _setup() {
+          value: function _setup(elementType) {
             var sceneID = this.hasAttribute("scene-id") ? this.getAttribute("scene-id") : undefined;
 
             if (sceneID === undefined) {
@@ -231,34 +209,73 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }
 
             var server = this.hasAttribute("server") ? this.getAttribute("server") : "production";
-            var serverLocation = Util.getServerLocation(server);
+            this.__internal__sceneID = sceneID;
+            this.__internal__server = server;
+            this.__internal__type = elementType;
+            var serverLocation = this.location;
 
             if (serverLocation === undefined) {
               throw new Error("PlattarSceneElement - attribute \"server\" must be one of \"production\", \"staging\" or \"dev\"");
+            }
+
+            var embedLocation = Util.getElementLocation(elementType);
+
+            if (embedLocation === undefined) {
+              throw new Error("PlattarSceneElement - element named \"" + elementType + "\" is invalid");
             } // clear to proceed
 
 
             var iframe = document.createElement("iframe");
-            iframe.setAttribute("width", this.hasAttribute("width") ? this.getAttribute("width") : "400");
-            iframe.setAttribute("height", this.hasAttribute("height") ? this.getAttribute("height") : "400");
-            iframe.setAttribute("src", serverLocation);
+            this.__internal__iframe = iframe;
+            iframe.setAttribute("width", this.hasAttribute("width") ? this.getAttribute("width") : "500px");
+            iframe.setAttribute("height", this.hasAttribute("height") ? this.getAttribute("height") : "500px");
+            iframe.setAttribute("src", serverLocation + embedLocation + "?scene_id=" + sceneID);
+            iframe.setAttribute("frameBorder", "0");
 
             if (!this.hasAttribute("fullscreen")) {
-              return {
-                iframe: iframe,
-                sceneID: sceneID,
-                style: undefined
-              };
+              return iframe;
             }
 
             var style = document.createElement('style');
             style.textContent = "\n            ._PlattarFullScreen {\n                width: 100%;\n                height: 100%;\n                position: absolute;\n                top: 0;\n                left: 0;\n            }\n        ";
             iframe.className = "_PlattarFullScreen";
-            return {
-              iframe: iframe,
-              sceneID: sceneID,
-              style: style
-            };
+            return iframe;
+          }
+        }, {
+          key: "sceneID",
+          get: function get() {
+            return this.__internal__sceneID;
+          }
+        }, {
+          key: "server",
+          get: function get() {
+            return this.__internal__server;
+          }
+        }, {
+          key: "elementType",
+          get: function get() {
+            return this.__internal__type;
+          }
+        }, {
+          key: "location",
+          get: function get() {
+            return Util.getServerLocation(this.server);
+          }
+        }, {
+          key: "width",
+          get: function get() {
+            return this.__internal__iframe.getAttribute("width");
+          },
+          set: function set(value) {
+            this.__internal__iframe.setAttribute("width", value);
+          }
+        }, {
+          key: "height",
+          get: function get() {
+            return this.__internal__iframe.getAttribute("height");
+          },
+          set: function set(value) {
+            this.__internal__iframe.setAttribute("height", value);
           }
         }]);
 
@@ -286,19 +303,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         _createClass(ViewerElement, [{
           key: "connectedCallback",
           value: function connectedCallback() {
-            var nodes = this._setup();
+            var iframe = this._setup("viewer");
 
-            var iframe = nodes.iframe;
-            var style = nodes.style;
             var shadow = this.attachShadow({
               mode: 'open'
             });
-            iframe.setAttribute("src", iframe.getAttribute("src") + "viewer.html?scene_id=" + nodes.sceneID);
-
-            if (style) {
-              shadow.append(style);
-            }
-
+            iframe.setAttribute("allow", "autoplay");
             shadow.append(iframe);
           }
         }]);
@@ -327,19 +337,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         _createClass(WebXRElement, [{
           key: "connectedCallback",
           value: function connectedCallback() {
-            var nodes = this._setup();
+            var iframe = this._setup("webxr");
 
-            var iframe = nodes.iframe;
-            var style = nodes.style;
             var shadow = this.attachShadow({
               mode: 'open'
             });
-            iframe.setAttribute("src", iframe.getAttribute("src") + "webxr.html?scene_id=" + nodes.sceneID);
-
-            if (style) {
-              shadow.append(style);
-            }
-
+            iframe.setAttribute("allow", "camera; autoplay; xr-spatial-tracking");
             shadow.append(iframe);
           }
         }]);
@@ -394,9 +397,33 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
               case "dev":
                 return "https://localhost/renderer/";
-            }
 
-            return undefined;
+              default:
+                return undefined;
+            }
+          }
+        }, {
+          key: "getElementLocation",
+          value: function getElementLocation(etype) {
+            switch (etype) {
+              case "viewer":
+                return "viewer.html";
+
+              case "editor":
+                return "editor.html";
+
+              case "ewall":
+                return "ewall.html";
+
+              case "facear":
+                return "facear.html";
+
+              case "webxr":
+                return "webxr.html";
+
+              default:
+                return undefined;
+            }
           }
         }]);
 

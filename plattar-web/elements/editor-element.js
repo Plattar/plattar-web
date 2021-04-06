@@ -6,18 +6,10 @@ class EditorElement extends PlattarSceneElement {
     }
 
     connectedCallback() {
-        const nodes = this._setup();
-        const iframe = nodes.iframe;
-        const style = nodes.style;
-
+        const iframe = this._setup("editor");
         const shadow = this.attachShadow({ mode: 'open' });
 
-        iframe.setAttribute("src", iframe.getAttribute("src") + "editor.html?scene_id=" + nodes.sceneID);
         iframe.setAttribute("allow", "autoplay");
-
-        if (style) {
-            shadow.append(style);
-        }
 
         shadow.append(iframe);
     }
