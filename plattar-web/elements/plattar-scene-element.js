@@ -65,6 +65,20 @@ class PlattarSceneElement extends HTMLElement {
         return this.__internal__sceneID;
     }
 
+    set sceneID(value) {
+        this.__internal__sceneID = value;
+
+        this.setAttribute("scene-id", value);
+
+        const iframe = this.__internal__iframe;
+
+        const serverLocation = this.location;
+        const embedLocation = Util.getElementLocation(this.elementType);
+        const sceneID = this.hasAttribute("scene-id") ? this.getAttribute("scene-id") : undefined;
+
+        iframe.setAttribute("src", serverLocation + embedLocation + "?scene_id=" + sceneID);
+    }
+
     get server() {
         return this.__internal__server;
     }
