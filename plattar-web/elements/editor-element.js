@@ -1,6 +1,6 @@
-const PlattarSceneElement = require("./plattar-scene-element.js");
+const BaseElement = require("./base/base-element.js");
 
-class EditorElement extends PlattarSceneElement {
+class EditorElement extends BaseElement {
     constructor() {
         super();
     }
@@ -9,8 +9,8 @@ class EditorElement extends PlattarSceneElement {
         return ["autoplay"];
     }
 
-    connectedCallback() {
-        this._setup("editor");
+    get elementType() {
+        return "editor";
     }
 }
 

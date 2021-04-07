@@ -1,6 +1,6 @@
-const PlattarSceneElement = require("./plattar-scene-element.js");
+const BaseElement = require("./base/base-element.js");
 
-class WebXRElement extends PlattarSceneElement {
+class WebXRElement extends BaseElement {
     constructor() {
         super();
     }
@@ -9,8 +9,8 @@ class WebXRElement extends PlattarSceneElement {
         return ["camera", "autoplay", "xr-spatial-tracking"];
     }
 
-    connectedCallback() {
-        this._setup("webxr");
+    get elementType() {
+        return "webxr";
     }
 }
 

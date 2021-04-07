@@ -14,12 +14,6 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, _getPrototypeOf(this).constructor); } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf(Wrapper, Class); }; return _wrapNativeSuper(Class); }
-
-function _construct(Parent, args, Class) { if (_isNativeReflectConstruct()) { _construct = Reflect.construct; } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
-
-function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[native code]") !== -1; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -28,15 +22,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
+function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, _getPrototypeOf(this).constructor); } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf(Wrapper, Class); }; return _wrapNativeSuper(Class); }
+
+function _construct(Parent, args, Class) { if (_isNativeReflectConstruct()) { _construct = Reflect.construct; } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[native code]") !== -1; }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -98,17 +98,174 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     return r;
   }()({
     1: [function (require, module, exports) {
-      var PlattarSceneElement = require("./plattar-scene-element.js");
+      var ElementController = require("../controllers/element-controller");
 
-      var EditorElement = /*#__PURE__*/function (_PlattarSceneElement) {
-        _inherits(EditorElement, _PlattarSceneElement);
+      var BaseElement = /*#__PURE__*/function (_HTMLElement) {
+        _inherits(BaseElement, _HTMLElement);
 
-        var _super = _createSuper(EditorElement);
+        var _super = _createSuper(BaseElement);
+
+        function BaseElement() {
+          _classCallCheck(this, BaseElement);
+
+          return _super.call(this);
+        }
+
+        _createClass(BaseElement, [{
+          key: "connectedCallback",
+          value: function connectedCallback() {
+            this._controller = new ElementController(this);
+          }
+        }, {
+          key: "messenger",
+          get: function get() {
+            return this._controller ? this._controller.messenger : undefined;
+          }
+        }, {
+          key: "permissions",
+          get: function get() {
+            return [];
+          }
+        }, {
+          key: "elementType",
+          get: function get() {
+            return "none";
+          }
+        }]);
+
+        return BaseElement;
+      }( /*#__PURE__*/_wrapNativeSuper(HTMLElement));
+
+      module.exports = BaseElement;
+    }, {
+      "../controllers/element-controller": 2
+    }],
+    2: [function (require, module, exports) {
+      var Util = require("../../util/util.js");
+
+      var Messenger = require("@plattar/context-messenger");
+
+      var IFrameController = require("./iframe-controller.js");
+
+      var ElementController = /*#__PURE__*/function () {
+        function ElementController(element) {
+          _classCallCheck(this, ElementController);
+
+          this._element = element;
+          this._sceneID = element.hasAttribute("scene-id") ? element.getAttribute("scene-id") : undefined;
+
+          if (this._sceneID === undefined) {
+            throw new Error("ElementController - required attribute \"scene-id\" is missing");
+          }
+
+          this._server = element.hasAttribute("server") ? element.getAttribute("server") : "production";
+          var serverLocation = Util.getServerLocation(this._server);
+
+          if (serverLocation === undefined) {
+            throw new Error("ElementController - attribute \"server\" must be one of \"production\", \"staging\" or \"dev\"");
+          }
+
+          var embedLocation = Util.getElementLocation(element.elementType);
+
+          if (embedLocation === undefined) {
+            throw new Error("ElementController - element named \"" + elementType + "\" is invalid");
+          }
+
+          var source = serverLocation + embedLocation + "?scene_id=" + this._sceneID;
+          this._controller = new IFrameController(element, source, this._sceneID);
+        }
+
+        _createClass(ElementController, [{
+          key: "messenger",
+          get: function get() {
+            return Messenger.messenger[this._sceneID];
+          }
+        }]);
+
+        return ElementController;
+      }();
+
+      module.exports = ElementController;
+    }, {
+      "../../util/util.js": 24,
+      "./iframe-controller.js": 3,
+      "@plattar/context-messenger": 10
+    }],
+    3: [function (require, module, exports) {
+      var Util = require("../../util/util.js");
+
+      var IFrameController = /*#__PURE__*/function () {
+        function IFrameController(element, src, id) {
+          _classCallCheck(this, IFrameController);
+
+          this._iframe = document.createElement("iframe");
+
+          this._iframe.setAttribute("id", id);
+
+          this._iframe.setAttribute("width", element.hasAttribute("width") ? element.getAttribute("width") : "500px");
+
+          this._iframe.setAttribute("height", element.hasAttribute("height") ? element.getAttribute("height") : "500px");
+
+          this._iframe.setAttribute("src", src);
+
+          this._iframe.setAttribute("frameBorder", "0");
+
+          var permissions = Util.getPermissionString(element.permissions);
+
+          if (permissions) {
+            this._iframe.setAttribute("allow", permissions);
+          }
+
+          var shadow = element.attachShadow({
+            mode: 'open'
+          });
+          shadow.append(this._iframe);
+
+          if (element.hasAttribute("fullscreen")) {
+            var style = document.createElement('style');
+            style.textContent = "\n                ._PlattarFullScreen {\n                    width: 100%;\n                    height: 100%;\n                    position: absolute;\n                    top: 0;\n                    left: 0;\n                }\n            ";
+            this._iframe.className = "_PlattarFullScreen";
+            shadow.append(style);
+          }
+        }
+
+        _createClass(IFrameController, [{
+          key: "width",
+          get: function get() {
+            return this._iframe.getAttribute("width");
+          },
+          set: function set(value) {
+            this._iframe.setAttribute("width", value);
+          }
+        }, {
+          key: "height",
+          get: function get() {
+            return this._iframe.getAttribute("height");
+          },
+          set: function set(value) {
+            this._iframe.setAttribute("height", value);
+          }
+        }]);
+
+        return IFrameController;
+      }();
+
+      module.exports = IFrameController;
+    }, {
+      "../../util/util.js": 24
+    }],
+    4: [function (require, module, exports) {
+      var BaseElement = require("./base/base-element.js");
+
+      var EditorElement = /*#__PURE__*/function (_BaseElement) {
+        _inherits(EditorElement, _BaseElement);
+
+        var _super2 = _createSuper(EditorElement);
 
         function EditorElement() {
           _classCallCheck(this, EditorElement);
 
-          return _super.call(this);
+          return _super2.call(this);
         }
 
         _createClass(EditorElement, [{
@@ -117,31 +274,31 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             return ["autoplay"];
           }
         }, {
-          key: "connectedCallback",
-          value: function connectedCallback() {
-            this._setup("editor");
+          key: "elementType",
+          get: function get() {
+            return "editor";
           }
         }]);
 
         return EditorElement;
-      }(PlattarSceneElement);
+      }(BaseElement);
 
       module.exports = EditorElement;
     }, {
-      "./plattar-scene-element.js": 4
+      "./base/base-element.js": 1
     }],
-    2: [function (require, module, exports) {
-      var PlattarSceneElement = require("./plattar-scene-element.js");
+    5: [function (require, module, exports) {
+      var BaseElement = require("./base/base-element.js");
 
-      var EWallElement = /*#__PURE__*/function (_PlattarSceneElement2) {
-        _inherits(EWallElement, _PlattarSceneElement2);
+      var EWallElement = /*#__PURE__*/function (_BaseElement2) {
+        _inherits(EWallElement, _BaseElement2);
 
-        var _super2 = _createSuper(EWallElement);
+        var _super3 = _createSuper(EWallElement);
 
         function EWallElement() {
           _classCallCheck(this, EWallElement);
 
-          return _super2.call(this);
+          return _super3.call(this);
         }
 
         _createClass(EWallElement, [{
@@ -150,31 +307,31 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             return ["camera", "autoplay", "xr-spatial-tracking"];
           }
         }, {
-          key: "connectedCallback",
-          value: function connectedCallback() {
-            this._setup("ewall");
+          key: "elementType",
+          get: function get() {
+            return "ewall";
           }
         }]);
 
         return EWallElement;
-      }(PlattarSceneElement);
+      }(BaseElement);
 
       module.exports = EWallElement;
     }, {
-      "./plattar-scene-element.js": 4
+      "./base/base-element.js": 1
     }],
-    3: [function (require, module, exports) {
-      var PlattarSceneElement = require("./plattar-scene-element.js");
+    6: [function (require, module, exports) {
+      var BaseElement = require("./base/base-element.js");
 
-      var FaceARElement = /*#__PURE__*/function (_PlattarSceneElement3) {
-        _inherits(FaceARElement, _PlattarSceneElement3);
+      var FaceARElement = /*#__PURE__*/function (_BaseElement3) {
+        _inherits(FaceARElement, _BaseElement3);
 
-        var _super3 = _createSuper(FaceARElement);
+        var _super4 = _createSuper(FaceARElement);
 
         function FaceARElement() {
           _classCallCheck(this, FaceARElement);
 
-          return _super3.call(this);
+          return _super4.call(this);
         }
 
         _createClass(FaceARElement, [{
@@ -183,159 +340,24 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             return ["camera", "autoplay"];
           }
         }, {
-          key: "connectedCallback",
-          value: function connectedCallback() {
-            this._setup("facear");
+          key: "elementType",
+          get: function get() {
+            return "facear";
           }
         }]);
 
         return FaceARElement;
-      }(PlattarSceneElement);
+      }(BaseElement);
 
       module.exports = FaceARElement;
     }, {
-      "./plattar-scene-element.js": 4
+      "./base/base-element.js": 1
     }],
-    4: [function (require, module, exports) {
-      var Util = require("../util/util.js");
+    7: [function (require, module, exports) {
+      var BaseElement = require("./base/base-element.js");
 
-      var Messenger = require("@plattar/context-messenger");
-
-      var PlattarSceneElement = /*#__PURE__*/function (_HTMLElement) {
-        _inherits(PlattarSceneElement, _HTMLElement);
-
-        var _super4 = _createSuper(PlattarSceneElement);
-
-        function PlattarSceneElement() {
-          _classCallCheck(this, PlattarSceneElement);
-
-          return _super4.call(this);
-        }
-
-        _createClass(PlattarSceneElement, [{
-          key: "_setup",
-          value: function _setup(elementType) {
-            var sceneID = this.hasAttribute("scene-id") ? this.getAttribute("scene-id") : undefined;
-
-            if (sceneID === undefined) {
-              throw new Error("PlattarSceneElement - required attribute \"scene-id\" is missing");
-            }
-
-            var server = this.hasAttribute("server") ? this.getAttribute("server") : "production";
-            this.__internal__sceneID = sceneID;
-            this.__internal__server = server;
-            this.__internal__type = elementType;
-            var serverLocation = this.location;
-
-            if (serverLocation === undefined) {
-              throw new Error("PlattarSceneElement - attribute \"server\" must be one of \"production\", \"staging\" or \"dev\"");
-            }
-
-            var embedLocation = Util.getElementLocation(elementType);
-
-            if (embedLocation === undefined) {
-              throw new Error("PlattarSceneElement - element named \"" + elementType + "\" is invalid");
-            } // clear to proceed
-
-
-            var iframe = document.createElement("iframe");
-            this.__internal__iframe = iframe;
-            iframe.setAttribute("id", sceneID);
-            iframe.setAttribute("width", this.hasAttribute("width") ? this.getAttribute("width") : "500px");
-            iframe.setAttribute("height", this.hasAttribute("height") ? this.getAttribute("height") : "500px");
-            iframe.setAttribute("src", serverLocation + embedLocation + "?scene_id=" + sceneID);
-            iframe.setAttribute("frameBorder", "0");
-            var permissions = Util.getPermissionString(this.permissions);
-
-            if (permissions) {
-              iframe.setAttribute("allow", permissions);
-            }
-
-            var shadow = this.attachShadow({
-              mode: 'open'
-            });
-            shadow.append(iframe);
-
-            if (!this.hasAttribute("fullscreen")) {
-              return iframe;
-            }
-
-            var style = document.createElement('style');
-            style.textContent = "\n            ._PlattarFullScreen {\n                width: 100%;\n                height: 100%;\n                position: absolute;\n                top: 0;\n                left: 0;\n            }\n        ";
-            iframe.className = "_PlattarFullScreen";
-            shadow.append(style);
-            return iframe;
-          }
-        }, {
-          key: "messenger",
-          get: function get() {
-            return Messenger.messenger[this.sceneID];
-          }
-        }, {
-          key: "sceneID",
-          get: function get() {
-            return this.__internal__sceneID;
-          },
-          set: function set(value) {
-            this.__internal__sceneID = value;
-            this.setAttribute("scene-id", value);
-            var iframe = this.__internal__iframe;
-            var serverLocation = this.location;
-            var embedLocation = Util.getElementLocation(this.elementType);
-            var sceneID = this.hasAttribute("scene-id") ? this.getAttribute("scene-id") : undefined;
-            iframe.setAttribute("src", serverLocation + embedLocation + "?scene_id=" + sceneID);
-          }
-        }, {
-          key: "server",
-          get: function get() {
-            return this.__internal__server;
-          }
-        }, {
-          key: "elementType",
-          get: function get() {
-            return this.__internal__type;
-          }
-        }, {
-          key: "location",
-          get: function get() {
-            return Util.getServerLocation(this.server);
-          }
-        }, {
-          key: "width",
-          get: function get() {
-            return this.__internal__iframe.getAttribute("width");
-          },
-          set: function set(value) {
-            this.__internal__iframe.setAttribute("width", value);
-          }
-        }, {
-          key: "height",
-          get: function get() {
-            return this.__internal__iframe.getAttribute("height");
-          },
-          set: function set(value) {
-            this.__internal__iframe.setAttribute("height", value);
-          }
-        }, {
-          key: "permissions",
-          get: function get() {
-            return [];
-          }
-        }]);
-
-        return PlattarSceneElement;
-      }( /*#__PURE__*/_wrapNativeSuper(HTMLElement));
-
-      module.exports = PlattarSceneElement;
-    }, {
-      "../util/util.js": 22,
-      "@plattar/context-messenger": 8
-    }],
-    5: [function (require, module, exports) {
-      var PlattarSceneElement = require("./plattar-scene-element.js");
-
-      var ViewerElement = /*#__PURE__*/function (_PlattarSceneElement4) {
-        _inherits(ViewerElement, _PlattarSceneElement4);
+      var ViewerElement = /*#__PURE__*/function (_BaseElement4) {
+        _inherits(ViewerElement, _BaseElement4);
 
         var _super5 = _createSuper(ViewerElement);
 
@@ -351,24 +373,24 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             return ["autoplay"];
           }
         }, {
-          key: "connectedCallback",
-          value: function connectedCallback() {
-            this._setup("viewer");
+          key: "elementType",
+          get: function get() {
+            return "viewer";
           }
         }]);
 
         return ViewerElement;
-      }(PlattarSceneElement);
+      }(BaseElement);
 
       module.exports = ViewerElement;
     }, {
-      "./plattar-scene-element.js": 4
+      "./base/base-element.js": 1
     }],
-    6: [function (require, module, exports) {
-      var PlattarSceneElement = require("./plattar-scene-element.js");
+    8: [function (require, module, exports) {
+      var BaseElement = require("./base/base-element.js");
 
-      var WebXRElement = /*#__PURE__*/function (_PlattarSceneElement5) {
-        _inherits(WebXRElement, _PlattarSceneElement5);
+      var WebXRElement = /*#__PURE__*/function (_BaseElement5) {
+        _inherits(WebXRElement, _BaseElement5);
 
         var _super6 = _createSuper(WebXRElement);
 
@@ -384,20 +406,20 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             return ["camera", "autoplay", "xr-spatial-tracking"];
           }
         }, {
-          key: "connectedCallback",
-          value: function connectedCallback() {
-            this._setup("webxr");
+          key: "elementType",
+          get: function get() {
+            return "webxr";
           }
         }]);
 
         return WebXRElement;
-      }(PlattarSceneElement);
+      }(BaseElement);
 
       module.exports = WebXRElement;
     }, {
-      "./plattar-scene-element.js": 4
+      "./base/base-element.js": 1
     }],
-    7: [function (require, module, exports) {
+    9: [function (require, module, exports) {
       "use strict";
 
       var Messenger = require("@plattar/context-messenger");
@@ -419,14 +441,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       customElements.define("plattar-8wall", EWallElement);
       module.exports = Messenger;
     }, {
-      "./elements/editor-element.js": 1,
-      "./elements/ewall-element.js": 2,
-      "./elements/facear-element.js": 3,
-      "./elements/viewer-element.js": 5,
-      "./elements/webxr-element.js": 6,
-      "@plattar/context-messenger": 8
+      "./elements/editor-element.js": 4,
+      "./elements/ewall-element.js": 5,
+      "./elements/facear-element.js": 6,
+      "./elements/viewer-element.js": 7,
+      "./elements/webxr-element.js": 8,
+      "@plattar/context-messenger": 10
     }],
-    8: [function (require, module, exports) {
+    10: [function (require, module, exports) {
       "use strict";
 
       var Messenger = require("./messenger/messenger.js");
@@ -446,11 +468,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         memory: memoryInstance
       };
     }, {
-      "./memory/memory.js": 9,
-      "./messenger/global-event-handler.js": 16,
-      "./messenger/messenger.js": 17
+      "./memory/memory.js": 11,
+      "./messenger/global-event-handler.js": 18,
+      "./messenger/messenger.js": 19
     }],
-    9: [function (require, module, exports) {
+    11: [function (require, module, exports) {
       var PermanentMemory = require("./permanent-memory");
 
       var TemporaryMemory = require("./temporary-memory");
@@ -496,10 +518,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       module.exports = Memory;
     }, {
-      "./permanent-memory": 10,
-      "./temporary-memory": 11
+      "./permanent-memory": 12,
+      "./temporary-memory": 13
     }],
-    10: [function (require, module, exports) {
+    12: [function (require, module, exports) {
       var WrappedValue = require("./wrapped-value");
 
       var PermanentMemory = function PermanentMemory(messengerInstance) {
@@ -597,9 +619,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       module.exports = PermanentMemory;
     }, {
-      "./wrapped-value": 12
+      "./wrapped-value": 14
     }],
-    11: [function (require, module, exports) {
+    13: [function (require, module, exports) {
       var WrappedValue = require("./wrapped-value");
 
       var TemporaryMemory = function TemporaryMemory(messengerInstance) {
@@ -676,9 +698,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       module.exports = TemporaryMemory;
     }, {
-      "./wrapped-value": 12
+      "./wrapped-value": 14
     }],
-    12: [function (require, module, exports) {
+    14: [function (require, module, exports) {
       /**
        * WrappedValue represents a generic value type with a callback function
        * for when the value has changed
@@ -796,7 +818,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       module.exports = WrappedValue;
     }, {}],
-    13: [function (require, module, exports) {
+    15: [function (require, module, exports) {
       /**
        * Broadcaster is used to call functions in multiple contexts at the
        * same time. This can be useful without having to handle complex logic
@@ -856,7 +878,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       module.exports = Broadcaster;
     }, {}],
-    14: [function (require, module, exports) {
+    16: [function (require, module, exports) {
       var WrappedFunction = require("./wrapped-local-function");
 
       var CurrentFunctionList = function CurrentFunctionList() {
@@ -919,9 +941,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       module.exports = CurrentFunctionList;
     }, {
-      "./wrapped-local-function": 15
+      "./wrapped-local-function": 17
     }],
-    15: [function (require, module, exports) {
+    17: [function (require, module, exports) {
       var Util = require("../util/util.js");
       /**
        * WrappedLocalFunction represents a container that holds and maintains a specific function
@@ -1031,9 +1053,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       module.exports = WrappedLocalFunction;
     }, {
-      "../util/util.js": 21
+      "../util/util.js": 23
     }],
-    16: [function (require, module, exports) {
+    18: [function (require, module, exports) {
       var RemoteInterface = require("./remote-interface.js");
       /**
        * This is a singleton class that handles events on a global basis. Allows
@@ -1125,9 +1147,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       module.exports = GlobalEventHandler;
     }, {
-      "./remote-interface.js": 18
+      "./remote-interface.js": 20
     }],
-    17: [function (require, module, exports) {
+    19: [function (require, module, exports) {
       var CurrentFunctionList = require("./current/current-function-list");
 
       var RemoteInterface = require("./remote-interface");
@@ -1315,14 +1337,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       module.exports = Messenger;
     }, {
-      "./broadcaster.js": 13,
-      "./current/current-function-list": 14,
-      "./global-event-handler.js": 16,
-      "./remote-interface": 18,
-      "./remote/remote-function-list": 19,
-      "./util/util.js": 21
+      "./broadcaster.js": 15,
+      "./current/current-function-list": 16,
+      "./global-event-handler.js": 18,
+      "./remote-interface": 20,
+      "./remote/remote-function-list": 21,
+      "./util/util.js": 23
     }],
-    18: [function (require, module, exports) {
+    20: [function (require, module, exports) {
       /**
        * Provides a single useful interface for performing remote function calls
        */
@@ -1392,7 +1414,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       module.exports = RemoteInterface;
     }, {}],
-    19: [function (require, module, exports) {
+    21: [function (require, module, exports) {
       var WrappedFunction = require("./wrapped-remote-function");
 
       var RemoteFunctionList = /*#__PURE__*/function () {
@@ -1496,9 +1518,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       module.exports = RemoteFunctionList;
     }, {
-      "./wrapped-remote-function": 20
+      "./wrapped-remote-function": 22
     }],
-    20: [function (require, module, exports) {
+    22: [function (require, module, exports) {
       var Util = require("../util/util.js");
 
       var GlobalEventHandler = require("../global-event-handler.js");
@@ -1590,10 +1612,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       module.exports = WrappedRemoteFunction;
     }, {
-      "../global-event-handler.js": 16,
-      "../util/util.js": 21
+      "../global-event-handler.js": 18,
+      "../util/util.js": 23
     }],
-    21: [function (require, module, exports) {
+    23: [function (require, module, exports) {
       var Util = /*#__PURE__*/function () {
         function Util() {
           _classCallCheck(this, Util);
@@ -1624,7 +1646,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       module.exports = Util;
     }, {}],
-    22: [function (require, module, exports) {
+    24: [function (require, module, exports) {
       var Util = /*#__PURE__*/function () {
         function Util() {
           _classCallCheck(this, Util);
@@ -1650,24 +1672,45 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         }, {
           key: "getElementLocation",
           value: function getElementLocation(etype) {
+            var isValid = Util.isValidType(etype);
+
+            if (isValid) {
+              return etype + ".html";
+            }
+
+            return undefined;
+          }
+        }, {
+          key: "getElementBundleLocation",
+          value: function getElementBundleLocation(etype, server) {
+            var location = Util.getServerLocation(server);
+
+            if (!location) {
+              return undefined;
+            }
+
+            var isValid = Util.isValidType(etype);
+
+            if (isValid) {
+              var isMinified = location === "dev" ? false : true;
+              return isMinified ? etype + "-bundle.min.js" : etype + "-bundle.js";
+            }
+
+            return undefined;
+          }
+        }, {
+          key: "isValidType",
+          value: function isValidType(etype) {
             switch (etype) {
               case "viewer":
-                return "viewer.html";
-
               case "editor":
-                return "editor.html";
-
               case "ewall":
-                return "ewall.html";
-
               case "facear":
-                return "facear.html";
-
               case "webxr":
-                return "webxr.html";
+                return true;
 
               default:
-                return undefined;
+                return false;
             }
           }
         }, {
@@ -1692,6 +1735,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       module.exports = Util;
     }, {}]
-  }, {}, [7])(7);
+  }, {}, [9])(9);
 });
 

@@ -1,6 +1,6 @@
-const PlattarSceneElement = require("./plattar-scene-element.js");
+const BaseElement = require("./base/base-element.js");
 
-class FaceARElement extends PlattarSceneElement {
+class FaceARElement extends BaseElement {
     constructor() {
         super();
     }
@@ -9,8 +9,8 @@ class FaceARElement extends PlattarSceneElement {
         return ["camera", "autoplay"];
     }
 
-    connectedCallback() {
-        this._setup("facear");
+    get elementType() {
+        return "facear";
     }
 }
 

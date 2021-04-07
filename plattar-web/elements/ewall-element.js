@@ -1,6 +1,6 @@
-const PlattarSceneElement = require("./plattar-scene-element.js");
+const BaseElement = require("./base/base-element.js");
 
-class EWallElement extends PlattarSceneElement {
+class EWallElement extends BaseElement {
     constructor() {
         super();
     }
@@ -9,8 +9,8 @@ class EWallElement extends PlattarSceneElement {
         return ["camera", "autoplay", "xr-spatial-tracking"];
     }
 
-    connectedCallback() {
-        this._setup("ewall");
+    get elementType() {
+        return "ewall";
     }
 }
 

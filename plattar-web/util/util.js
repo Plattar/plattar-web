@@ -9,13 +9,41 @@ class Util {
     }
 
     static getElementLocation(etype) {
+        const isValid = Util.isValidType(etype);
+
+        if (isValid) {
+            return etype + ".html";
+        }
+
+        return undefined;
+    }
+
+    static getElementBundleLocation(etype, server) {
+        const location = Util.getServerLocation(server);
+
+        if (!location) {
+            return undefined;
+        }
+
+        const isValid = Util.isValidType(etype);
+
+        if (isValid) {
+            const isMinified = location === "dev" ? false : true;
+
+            return isMinified ? (etype + "-bundle.min.js") : (etype + "-bundle.js");
+        }
+
+        return undefined;
+    }
+
+    static isValidType(etype) {
         switch (etype) {
-            case "viewer": return "viewer.html";
-            case "editor": return "editor.html";
-            case "ewall": return "ewall.html";
-            case "facear": return "facear.html";
-            case "webxr": return "webxr.html";
-            default: return undefined;
+            case "viewer":
+            case "editor":
+            case "ewall":
+            case "facear":
+            case "webxr": return true;
+            default: return false;
         }
     }
 

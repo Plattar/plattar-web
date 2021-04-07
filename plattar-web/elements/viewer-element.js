@@ -1,6 +1,6 @@
-const PlattarSceneElement = require("./plattar-scene-element.js");
+const BaseElement = require("./base/base-element.js");
 
-class ViewerElement extends PlattarSceneElement {
+class ViewerElement extends BaseElement {
     constructor() {
         super();
     }
@@ -9,8 +9,8 @@ class ViewerElement extends PlattarSceneElement {
         return ["autoplay"];
     }
 
-    connectedCallback() {
-        this._setup("viewer");
+    get elementType() {
+        return "viewer";
     }
 }
 
