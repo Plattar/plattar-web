@@ -1,6 +1,6 @@
 {
   "name": "@plattar/plattar-web",
-  "version": "1.103.1",
+  "version": "1.104.1",
   "description": "Module for interfacing with the Plattar Embeds and Web Viewers (https://www.plattar.com)",
   "main": "index.js",
   "module": "index.js",
@@ -8,7 +8,7 @@
   "scripts": {
     "clean": "rm -rf build node_modules",
     "build": "npm run clean && npm install && npm run build-es2019 && npm run build-es2015",
-    "build-es2019": "rm -rf build/es2019 && mkdir -p build/es2019 && browserify --standalone Plattar index.js -o build/es2019/plattar-web.js && uglifyjs build/es2019/plattar-web.js --output build/es2019/plattar-web.min.js",
+    "build-es2019": "rm -rf build/es2019 && mkdir -p build/es2019 && browserify --standalone PlattarWeb index.js -o build/es2019/plattar-web.js && uglifyjs build/es2019/plattar-web.js --output build/es2019/plattar-web.min.js",
     "build-es2015": "rm -rf build/es2015 && mkdir -p build/es2015 && babel build/es2019/plattar-web.js --presets=@babel/env > build/es2015/plattar-web.js && uglifyjs build/es2015/plattar-web.js --output build/es2015/plattar-web.min.js"
   },
   "repository": {
@@ -38,7 +38,7 @@
   },
   "homepage": "https://www.plattar.com",
   "dependencies": {
-    "@plattar/context-messenger": "^1.96.4"
+    "@plattar/context-messenger": "^1.104.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.14",
