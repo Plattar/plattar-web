@@ -17,13 +17,13 @@ class BaseElement extends HTMLElement {
         return this._controller ? true : false;
     }
 
-    get allowDragging() {
-        return this._controller ? this._controller.controller.allowDragging : false;
+    get allowDragDrop() {
+        return this._controller ? this._controller.controller.allowDragDrop : false;
     }
 
-    set allowDragging(value) {
+    set allowDragDrop(value) {
         if (this._controller) {
-            this._controller.controller.allowDragging = value;
+            this._controller.controller.allowDragDrop = value;
         }
     }
 

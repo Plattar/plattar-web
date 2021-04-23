@@ -19,6 +19,8 @@ class IFrameController {
 
         const shadow = element.attachShadow({ mode: 'open' });
 
+        this.allowDragging = false;
+
         shadow.append(this._iframe);
 
         if (element.hasAttribute("fullscreen")) {
@@ -40,26 +42,18 @@ class IFrameController {
         }
     }
 
-    set allowDragging(value) {
+    set allowDragDrop(value) {
         if (value) {
             this._isDraggable = true;
-            this._iframe.ondragover = (ev) => {
-                if (ev) {
-                    ev.preventDefault();
-                }
-
-                return false;
-            }
+            this._iframe.style.pointerEvents = "none";
         }
         else {
             this._isDraggable = false;
-            this._iframe.ondragover = () => {
-                return true;
-            }
+            this._iframe.style.pointerEvents = "auto";
         }
     }
 
-    get allowDragging() {
+    get allowDragDrop() {
         return this._isDraggable;
     }
 
