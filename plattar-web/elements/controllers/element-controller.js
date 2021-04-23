@@ -34,6 +34,10 @@ class ElementController {
     get messenger() {
         return Messenger.messenger[this._sceneID];
     }
+
+    get controller() {
+        return this._controller;
+    }
 }
 
 module.exports = ElementController;

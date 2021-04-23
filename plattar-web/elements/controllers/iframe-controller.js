@@ -3,6 +3,7 @@ const Util = require("../../util/util.js");
 class IFrameController {
     constructor(element, src, id) {
         this._iframe = document.createElement("iframe");
+        this._isDraggable = false;
 
         this._iframe.setAttribute("id", id);
         this._iframe.setAttribute("width", element.hasAttribute("width") ? element.getAttribute("width") : "500px");
@@ -37,6 +38,29 @@ class IFrameController {
 
             shadow.append(style);
         }
+    }
+
+    set allowDragging(value) {
+        if (value) {
+            this._isDraggable = true;
+            this._iframe.ondragover = (ev) => {
+                if (ev) {
+                    ev.preventDefault();
+                }
+
+                return false;
+            }
+        }
+        else {
+            this._isDraggable = false;
+            this._iframe.ondragover = () => {
+                return true;
+            }
+        }
+    }
+
+    get allowDragging() {
+        return this._isDraggable;
     }
 
     get width() {
