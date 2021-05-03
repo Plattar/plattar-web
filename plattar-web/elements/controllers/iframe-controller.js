@@ -17,7 +17,7 @@ class IFrameController {
             this._iframe.setAttribute("allow", permissions);
         }
 
-        const shadow = element.attachShadow({ mode: 'open' });
+        const shadow = element.shadowRoot || element.attachShadow({ mode: 'open' });
 
         this.allowDragging = false;
 
@@ -39,6 +39,8 @@ class IFrameController {
             this._iframe.className = "_PlattarFullScreen";
 
             shadow.append(style);
+
+            this._fsStyle = style;
         }
     }
 
@@ -53,12 +55,29 @@ class IFrameController {
         }
     }
 
+    _destroy() {
+        if (this._iframe) {
+            this._iframe.remove();
+        }
+
+        if (this._fsStyle) {
+            this._fsStyle.remove();
+        }
+
+        this._iframe = undefined;
+        this._fsStyle = undefined;
+    }
+
     get allowDragDrop() {
         return this._isDraggable;
     }
 
     get width() {
         return this._iframe.getAttribute("width");
+    }
+
+    get child() {
+        return this._iframe;
     }
 
     set width(value) {

@@ -6,6 +6,32 @@ class ElementController {
     constructor(element) {
         this._element = element;
 
+        // observe the changes in scene-id
+        const callback = (mutationsList) => {
+            for (const mutation of mutationsList) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'scene-id') {
+                    this._load();
+                }
+            }
+        };
+
+        const observer = new MutationObserver(callback);
+        observer.observe(this._element, { attributes: true });
+
+        // load initially if scene-id is set
+        if (element.hasAttribute("scene-id")) {
+            this._load();
+        }
+    }
+
+    _load() {
+        if (this._controller) {
+            this._controller._destroy();
+            this._controller = undefined;
+        }
+
+        const element = this._element;
+
         this._sceneID = element.hasAttribute("scene-id") ? element.getAttribute("scene-id") : undefined;
 
         if (this._sceneID === undefined) {
