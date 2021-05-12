@@ -42,6 +42,7 @@ class Util {
             case "editor":
             case "ewall":
             case "facear":
+            case "studio":
             case "webxr": return true;
             default: return false;
         }

@@ -66,3 +66,9 @@ Plattar is restricted to run correctly on _HTTPS_. Other protocols are not guara
 ```html
 <plattar-editor scene-id="your-scene-id"></plattar-editor>
 ```
+
+-   Embed your Plattar Scene as a read-only Studio into your website. The Studio allows recording videos and movies of an existing scene.
+
+```html
+<plattar-studio scene-id="your-scene-id"></plattar-studio>
+```
