@@ -1,6 +1,6 @@
 {
   "name": "@plattar/plattar-web",
-  "version": "1.106.3",
+  "version": "1.106.4",
   "description": "Module for interfacing with the Plattar Embeds and Web Viewers (https://www.plattar.com)",
   "main": "index.js",
   "module": "index.js",
@@ -38,7 +38,7 @@
   },
   "homepage": "https://www.plattar.com",
   "dependencies": {
-    "@plattar/context-messenger": "^1.106.1"
+    "@plattar/context-messenger": "^1.106.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.14",
