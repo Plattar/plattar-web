@@ -54,11 +54,15 @@ class ElementController {
 
         const source = serverLocation + embedLocation + "?scene_id=" + this._sceneID;
 
-        this._controller = new IFrameController(element, source, this._sceneID);
+        // ensure iframe ID is randomly generated as we could have multiple iframes
+        // with same Scene ID - such as viewer and editor running on same page
+        this._messengerID = "element_" + Util.id();
+
+        this._controller = new IFrameController(element, source, this._messengerID);
     }
 
     get messenger() {
-        return Messenger.messenger[this._sceneID];
+        return Messenger.messenger[this._messengerID];
     }
 
     get controller() {

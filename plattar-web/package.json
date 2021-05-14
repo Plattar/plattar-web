@@ -1,6 +1,6 @@
 {
   "name": "@plattar/plattar-web",
-  "version": "1.106.4",
+  "version": "1.106.5",
   "description": "Module for interfacing with the Plattar Embeds and Web Viewers (https://www.plattar.com)",
   "main": "index.js",
   "module": "index.js",
