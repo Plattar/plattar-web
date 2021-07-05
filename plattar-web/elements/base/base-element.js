@@ -13,6 +13,10 @@ class BaseElement extends HTMLElement {
         return this._controller ? this._controller.messenger : undefined;
     }
 
+    get element() {
+        return this._controller;
+    }
+
     get ready() {
         return this._controller ? true : false;
     }

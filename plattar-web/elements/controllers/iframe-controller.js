@@ -91,6 +91,10 @@ class IFrameController {
     set height(value) {
         this._iframe.setAttribute("height", value);
     }
+
+    get id() {
+        return this._iframe.id;
+    }
 }
 
 module.exports = IFrameController;
