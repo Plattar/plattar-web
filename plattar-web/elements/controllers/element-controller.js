@@ -65,6 +65,10 @@ class ElementController {
         return Messenger.messenger[this._messengerID];
     }
 
+    get context() {
+        return Messenger.messenger.self;
+    }
+
     get controller() {
         return this._controller;
     }

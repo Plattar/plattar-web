@@ -39,12 +39,12 @@
   },
   "homepage": "https://www.plattar.com",
   "dependencies": {
-    "@plattar/context-messenger": "^1.106.2"
+    "@plattar/context-messenger": "^1.112.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.14",
-    "@babel/core": "^7.13.14",
-    "@babel/preset-env": "^7.13.12",
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
     "browserify": "^17.0.0",
     "uglify-es": "^3.3.9"
   }
