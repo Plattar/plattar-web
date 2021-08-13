@@ -1,5 +1,5 @@
 const Util = require("../../util/util.js");
-const Messenger = require("@plattar/context-messenger");
+const { messenger } = require("@plattar/context-messenger");
 const IFrameController = require("./iframe-controller.js");
 
 class ElementController {
@@ -62,11 +62,11 @@ class ElementController {
     }
 
     get messenger() {
-        return Messenger.messenger[this._messengerID];
+        return messenger[this._messengerID];
     }
 
     get context() {
-        return Messenger.messenger.self;
+        return messenger.self;
     }
 
     get controller() {

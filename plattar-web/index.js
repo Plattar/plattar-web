@@ -1,5 +1,4 @@
 "use strict";
-const Messenger = require("@plattar/context-messenger");
 const WebXRElement = require("./elements/webxr-element.js");
 const ViewerElement = require("./elements/viewer-element.js");
 const EWallElement = require("./elements/ewall-element.js");
@@ -18,6 +17,5 @@ customElements.define("plattar-studio", StudioElement);
 console.log("using @plattar/plattar-web v" + Version);
 
 module.exports = {
-    version: Version,
-    Messenger: Messenger
+    version: Version
 };
