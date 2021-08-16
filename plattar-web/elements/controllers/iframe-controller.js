@@ -1,9 +1,18 @@
 const Util = require("../../util/util.js");
 
 class IFrameController {
-    constructor(element, src, id) {
+    constructor(element, src, id, onelemload = undefined) {
         this._iframe = document.createElement("iframe");
         this._isDraggable = false;
+
+        // check the onload functionality if cross-origin is defined
+        if (!element.hasAttribute("crossorigin")) {
+            this._iframe.onload = () => {
+                if (onelemload) {
+                    onelemload(this._iframe);
+                }
+            };
+        }
 
         this._iframe.setAttribute("id", id);
         this._iframe.setAttribute("width", element.hasAttribute("width") ? element.getAttribute("width") : "500px");

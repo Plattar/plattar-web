@@ -9,6 +9,12 @@ class BaseElement extends HTMLElement {
         this._controller = new ElementController(this);
     }
 
+    set onload(callback) {
+        if (this._controller) {
+            this._controller.onload = callback;
+        }
+    }
+
     get messenger() {
         return this._controller ? this._controller.messenger : undefined;
     }

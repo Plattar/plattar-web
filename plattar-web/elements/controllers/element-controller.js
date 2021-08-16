@@ -58,7 +58,19 @@ class ElementController {
         // with same Scene ID - such as viewer and editor running on same page
         this._messengerID = "element_" + Util.id();
 
-        this._controller = new IFrameController(element, source, this._messengerID);
+        this._controller = new IFrameController(element, source, this._messengerID, (node) => {
+            // for cross-origin messenger setup, we need to setup manually
+            // this might require additional iterations
+            messenger.addChild(node);
+        });
+    }
+
+    set onload(callback) {
+        if (callback) {
+            messenger.onload(this._messengerID, () => {
+                callback();
+            });
+        }
     }
 
     get messenger() {
