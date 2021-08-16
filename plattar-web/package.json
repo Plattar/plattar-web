@@ -39,7 +39,7 @@
   },
   "homepage": "https://www.plattar.com",
   "dependencies": {
-    "@plattar/context-messenger": "^1.113.1"
+    "@plattar/context-messenger": "^1.113.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",
