@@ -9,10 +9,14 @@ class BaseElement extends HTMLElement {
         this._controller = new ElementController(this);
     }
 
-    set onload(callback) {
+    set onready(callback) {
         if (this._controller) {
             this._controller.onload = callback;
+
+            return;
         }
+
+        throw new Error("set BaseElement.onready - cannot use as element not connected");
     }
 
     get messenger() {
@@ -38,7 +42,11 @@ class BaseElement extends HTMLElement {
     set allowDragDrop(value) {
         if (this._controller) {
             this._controller.controller.allowDragDrop = value;
+
+            return;
         }
+
+        throw new Error("set BaseElement.allowDragDrop - cannot use as element not connected");
     }
 
     get permissions() {

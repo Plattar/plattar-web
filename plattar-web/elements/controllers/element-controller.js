@@ -66,7 +66,14 @@ class ElementController {
     }
 
     set onload(callback) {
-        if (callback) {
+        if (!callback) {
+            return;
+        }
+
+        if (this.messenger) {
+            callback();
+        }
+        else {
             messenger.onload(this._messengerID, () => {
                 callback();
             });
