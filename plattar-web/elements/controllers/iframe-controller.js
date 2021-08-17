@@ -6,7 +6,7 @@ class IFrameController {
         this._isDraggable = false;
 
         // check the onload functionality if cross-origin is defined
-        if (!element.hasAttribute("crossorigin")) {
+        if (!element.hasAttribute("sameorigin")) {
             this._iframe.onload = () => {
                 if (onelemload) {
                     onelemload(this._iframe);
