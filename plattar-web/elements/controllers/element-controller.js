@@ -9,8 +9,10 @@ class ElementController {
         // observe the changes in scene-id
         const callback = (mutationsList) => {
             for (const mutation of mutationsList) {
-                if (mutation.type === 'attributes' && mutation.attributeName === 'scene-id') {
-                    this._load();
+                if (mutation.type === 'attributes' && element.usesCoreAttribute(mutation.attributeName)) {
+                    if (element.hasAllCoreAttributes) {
+                        this._load();
+                    }
                 }
             }
         };
@@ -18,8 +20,8 @@ class ElementController {
         const observer = new MutationObserver(callback);
         observer.observe(this._element, { attributes: true });
 
-        // load initially if scene-id is set
-        if (element.hasAttribute("scene-id")) {
+        // load initially if all core attributes are set
+        if (element.hasAllCoreAttributes) {
             this._load();
         }
     }
@@ -31,12 +33,6 @@ class ElementController {
         }
 
         const element = this._element;
-
-        this._sceneID = element.hasAttribute("scene-id") ? element.getAttribute("scene-id") : undefined;
-
-        if (this._sceneID === undefined) {
-            throw new Error("ElementController - required attribute \"scene-id\" is missing");
-        }
 
         this._server = element.hasAttribute("server") ? element.getAttribute("server") : "production";
 
@@ -52,7 +48,7 @@ class ElementController {
             throw new Error("ElementController - element named \"" + elementType + "\" is invalid");
         }
 
-        const source = serverLocation + embedLocation + "?scene_id=" + this._sceneID;
+        const source = serverLocation + embedLocation + element.allMappedAttributesQuery;
 
         // ensure iframe ID is randomly generated as we could have multiple iframes
         // with same Scene ID - such as viewer and editor running on same page

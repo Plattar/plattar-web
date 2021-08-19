@@ -53,6 +53,81 @@ class BaseElement extends HTMLElement {
         return [];
     }
 
+    get coreAttributes() {
+        return [{
+            key: "scene-id",
+            map: "scene_id"
+        }];
+    }
+
+    usesCoreAttribute(key) {
+        const attr = this.coreAttributes;
+
+        const length = attr.length;
+
+        for (let i = 0; i < length; i++) {
+            if (attr[i].key === key) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    get optionalAttributes() {
+        return [];
+    }
+
+    get hasAllCoreAttributes() {
+        const attr = this.coreAttributes;
+
+        const length = attr.length;
+
+        for (let i = 0; i < length; i++) {
+            if (!this.hasAttribute(attr[i].key)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    get allMappedAttributes() {
+        const map = new Map();
+
+        const coreAttr = this.coreAttributes;
+        const optAttr = this.optionalAttributes;
+
+        coreAttr.forEach((ele) => {
+            if (this.hasAttribute(ele.key)) {
+                map.set(ele.map, this.getAttribute(ele.key));
+            }
+        });
+
+        optAttr.forEach((ele) => {
+            if (this.hasAttribute(ele.key)) {
+                map.set(ele.map, this.getAttribute(ele.key));
+            }
+        });
+
+        return map;
+    }
+
+    get allMappedAttributesQuery() {
+        const attr = this.allMappedAttributes;
+
+        let queryStr = "";
+        let first = true;
+
+        for (const [key, value] of attr.entries()) {
+            queryStr = first ? ("?" + key + "=" + value) : ("&" + key + "=" + value);
+
+            first = false;
+        }
+
+        return queryStr;
+    }
+
     get elementType() {
         return "none";
     }

@@ -1,2 +1,3 @@
 .DS_Store
 plattar-web/build/
+plattar-web/package-lock.json
