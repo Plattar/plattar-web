@@ -44,6 +44,7 @@ class Util {
             case "facear":
             case "studio":
             case "product":
+            case "model":
             case "webxr": return true;
             default: return false;
         }
