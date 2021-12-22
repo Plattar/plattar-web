@@ -9,14 +9,37 @@ const StudioElement = require("./elements/studio-element.js");
 const ModelElement = require("./elements/model-element.js");
 const Version = require("./version");
 
-customElements.define("plattar-webxr", WebXRElement);
-customElements.define("plattar-viewer", ViewerElement);
-customElements.define("plattar-product", ProductElement);
-customElements.define("plattar-editor", EditorElement);
-customElements.define("plattar-facear", FaceARElement);
-customElements.define("plattar-8wall", EWallElement);
-customElements.define("plattar-studio", StudioElement);
-customElements.define("plattar-model", ModelElement);
+if (customElements.get("plattar-webxr") === undefined) {
+    customElements.define("plattar-webxr", WebXRElement);
+}
+
+if (customElements.get("plattar-viewer") === undefined) {
+    customElements.define("plattar-viewer", ViewerElement);
+}
+
+if (customElements.get("plattar-product") === undefined) {
+    customElements.define("plattar-product", ProductElement);
+}
+
+if (customElements.get("plattar-editor") === undefined) {
+    customElements.define("plattar-editor", EditorElement);
+}
+
+if (customElements.get("plattar-facear") === undefined) {
+    customElements.define("plattar-facear", FaceARElement);
+}
+
+if (customElements.get("plattar-8wall") === undefined) {
+    customElements.define("plattar-8wall", EWallElement);
+}
+
+if (customElements.get("plattar-studio") === undefined) {
+    customElements.define("plattar-studio", StudioElement);
+}
+
+if (customElements.get("plattar-model") === undefined) {
+    customElements.define("plattar-model", ModelElement);
+}
 
 console.log("using @plattar/plattar-web v" + Version);
 
