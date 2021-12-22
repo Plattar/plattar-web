@@ -12,6 +12,16 @@ class FaceARElement extends BaseElement {
     get elementType() {
         return "facear";
     }
+
+    get optionalAttributes() {
+        return [{
+            key: "variation-id",
+            map: "variationId"
+        }, {
+            key: "product-id",
+            map: "productId"
+        }];
+    }
 }
 
 module.exports = FaceARElement;
