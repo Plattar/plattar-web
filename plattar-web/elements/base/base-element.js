@@ -120,7 +120,7 @@ class BaseElement extends HTMLElement {
         let first = true;
 
         for (const [key, value] of attr.entries()) {
-            queryStr = first ? ("?" + key + "=" + value) : ("&" + key + "=" + value);
+            queryStr += (first ? ("?" + key + "=" + value) : ("&" + key + "=" + value));
 
             first = false;
         }
