@@ -12,6 +12,16 @@ class ViewerElement extends BaseElement {
     get elementType() {
         return "viewer";
     }
+
+    get optionalAttributes() {
+        return [{
+            key: "variation-id",
+            map: "variationId"
+        }, {
+            key: "product-id",
+            map: "productId"
+        }];
+    }
 }
 
 module.exports = ViewerElement;
