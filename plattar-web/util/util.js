@@ -45,6 +45,7 @@ class Util {
             case "studio":
             case "product":
             case "model":
+            case "configurator":
             case "webxr": return true;
             default: return false;
         }
