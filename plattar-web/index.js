@@ -7,6 +7,7 @@ const FaceARElement = require("./elements/facear-element.js");
 const EditorElement = require("./elements/editor-element.js");
 const StudioElement = require("./elements/studio-element.js");
 const ModelElement = require("./elements/model-element.js");
+const ConfiguratorElement = require("./elements/configurator-element.js");
 const Version = require("./version");
 
 if (customElements.get("plattar-webxr") === undefined) {
@@ -39,6 +40,10 @@ if (customElements.get("plattar-studio") === undefined) {
 
 if (customElements.get("plattar-model") === undefined) {
     customElements.define("plattar-model", ModelElement);
+}
+
+if (customElements.get("plattar-configurator") === undefined) {
+    customElements.define("plattar-configurator", ConfiguratorElement);
 }
 
 console.log("using @plattar/plattar-web v" + Version);
