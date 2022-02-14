@@ -20,6 +20,12 @@ class FaceARElement extends BaseElement {
         }, {
             key: "product-id",
             map: "productId"
+        }, {
+            key: "config-state",
+            map: "config_state"
+        }, {
+            key: "show-ar",
+            map: "show_ar"
         }];
     }
 }
