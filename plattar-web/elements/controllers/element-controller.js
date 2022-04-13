@@ -42,7 +42,7 @@ class ElementController {
             throw new Error("ElementController - attribute \"server\" must be one of \"production\", \"staging\" or \"dev\"");
         }
 
-        const embedLocation = Util.getElementLocation(element.elementType);
+        const embedLocation = element.elementLocation;
 
         if (embedLocation === undefined) {
             throw new Error("ElementController - element named \"" + elementType + "\" is invalid");

@@ -13,6 +13,16 @@ class ConfiguratorElement extends BaseElement {
         return "configurator";
     }
 
+    get elementLocation() {
+        if (this.hasAttribute("show-ui")) {
+            const state = this.getAttribute("show-ui");
+
+            return state === "true" ? "configurator/dist/index.html" : super.elementLocation;
+        }
+
+        return super.elementLocation;
+    }
+
     get optionalAttributes() {
         return [{
             key: "config-state",
