@@ -21,7 +21,7 @@ class EWallElement extends BaseElement {
             }
         }
 
-        window.addEventListener('load', onLoad, false)
+        window.addEventListener("load", onLoad, false)
     }
 
     get permissions() {

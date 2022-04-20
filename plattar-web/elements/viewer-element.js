@@ -20,6 +20,9 @@ class ViewerElement extends BaseElement {
         }, {
             key: "product-id",
             map: "productId"
+        }, {
+            key: "show-ar",
+            map: "show_ar"
         }];
     }
 }

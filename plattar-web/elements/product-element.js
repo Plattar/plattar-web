@@ -24,6 +24,9 @@ class ProductElement extends BaseElement {
         return [{
             key: "variation-id",
             map: "variation_id"
+        }, {
+            key: "show-ar",
+            map: "show_ar"
         }];
     }
 }
