@@ -28,6 +28,10 @@ class BaseElement extends HTMLElement {
         return this._controller ? this._controller.context : undefined;
     }
 
+    get parent() {
+        return this._controller ? this._controller.parent : undefined;
+    }
+
     get element() {
         return this._controller;
     }

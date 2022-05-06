@@ -84,6 +84,10 @@ class ElementController {
         return messenger.self;
     }
 
+    get parent() {
+        return messenger.parent;
+    }
+
     get controller() {
         return this._controller;
     }
