@@ -1,3 +1,4 @@
+const Util = require("../../util/util");
 const ElementController = require("../controllers/element-controller");
 
 class BaseElement extends HTMLElement {
@@ -134,6 +135,10 @@ class BaseElement extends HTMLElement {
 
     get elementType() {
         return "none";
+    }
+
+    get elementLocation() {
+        return Util.getElementLocation(this.elementType);
     }
 }
 

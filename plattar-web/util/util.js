@@ -1,9 +1,9 @@
 class Util {
     static getServerLocation(server) {
         switch (server) {
-            case "production": return "https://app.plattar.com/renderer/";
-            case "staging": return "https://staging.plattar.space/renderer/";
-            case "dev": return "https://localhost/renderer/";
+            case "production": return "https://app.plattar.com/";
+            case "staging": return "https://staging.plattar.space/";
+            case "dev": return "https://localhost/";
             default: return undefined;
         }
     }
@@ -12,25 +12,7 @@ class Util {
         const isValid = Util.isValidType(etype);
 
         if (isValid) {
-            return etype + ".html";
-        }
-
-        return undefined;
-    }
-
-    static getElementBundleLocation(etype, server) {
-        const location = Util.getServerLocation(server);
-
-        if (!location) {
-            return undefined;
-        }
-
-        const isValid = Util.isValidType(etype);
-
-        if (isValid) {
-            const isMinified = location === "dev" ? false : true;
-
-            return isMinified ? (etype + "-bundle.min.js") : (etype + "-bundle.js");
+            return "renderer/" + etype + ".html";
         }
 
         return undefined;

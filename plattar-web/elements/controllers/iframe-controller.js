@@ -35,15 +35,7 @@ class IFrameController {
         if (element.hasAttribute("fullscreen")) {
             const style = document.createElement('style');
 
-            style.textContent = `
-                ._PlattarFullScreen {
-                    width: 100%;
-                    height: 100%;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                }
-            `;
+            style.textContent = `._PlattarFullScreen { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }`;
 
             this._iframe.className = "_PlattarFullScreen";
 
