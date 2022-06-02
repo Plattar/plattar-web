@@ -18,6 +18,9 @@ class ViewerElement extends BaseElement {
             key: "variation-id",
             map: "variationId"
         }, {
+            key: "variation-sku",
+            map: "variationSku"
+        }, {
             key: "product-id",
             map: "productId"
         }, {
