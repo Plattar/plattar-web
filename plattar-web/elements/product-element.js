@@ -25,6 +25,9 @@ class ProductElement extends BaseElement {
             key: "variation-id",
             map: "variation_id"
         }, {
+            key: "variation-sku",
+            map: "variationSku"
+        }, {
             key: "show-ar",
             map: "show_ar"
         }];
