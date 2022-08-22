@@ -19,6 +19,13 @@ class ModelElement extends BaseElement {
             map: "model_id"
         }];
     }
+
+    get optionalAttributes() {
+        return [{
+            key: "mode",
+            map: "mode"
+        }];
+    }
 }
 
 module.exports = ModelElement;
