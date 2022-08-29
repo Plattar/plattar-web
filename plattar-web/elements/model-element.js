@@ -6,7 +6,7 @@ class ModelElement extends BaseElement {
     }
 
     get permissions() {
-        return ["autoplay"];
+        return ["camera", "autoplay"];
     }
 
     get elementType() {
