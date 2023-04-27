@@ -42,10 +42,10 @@
     "@plattar/context-messenger": "^1.113.6"
   },
   "devDependencies": {
-    "@babel/cli": "^7.18.10",
-    "@babel/core": "^7.18.13",
-    "@babel/preset-env": "^7.18.10",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
     "browserify": "^17.0.0",
-    "uglify-js": "^3.17.0"
+    "uglify-js": "^3.17.4"
   }
 }

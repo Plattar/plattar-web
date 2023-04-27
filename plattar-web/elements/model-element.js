@@ -14,16 +14,19 @@ class ModelElement extends BaseElement {
     }
 
     get coreAttributes() {
-        return [{
-            key: "model-id",
-            map: "model_id"
-        }];
+        return [];
     }
 
     get optionalAttributes() {
         return [{
             key: "mode",
             map: "mode"
+        }, {
+            key: "capture-id",
+            map: "capture_id"
+        }, {
+            key: "model-id",
+            map: "model_id"
         }];
     }
 }
