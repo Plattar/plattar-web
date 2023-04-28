@@ -79,6 +79,24 @@ class BaseElement extends HTMLElement {
         return false;
     }
 
+    usesOptionalAttribute(key) {
+        const attr = this.optionalAttributes;
+
+        const length = attr.length;
+
+        for (let i = 0; i < length; i++) {
+            if (attr[i].key === key) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    usesAttribute(key) {
+        return this.usesCoreAttribute(key) || this.usesOptionalAttribute(key);
+    }
+
     get optionalAttributes() {
         return [];
     }
