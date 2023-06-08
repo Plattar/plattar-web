@@ -9,7 +9,7 @@ class ElementController {
         // observe the changes in scene-id
         const callback = (mutationsList) => {
             for (const mutation of mutationsList) {
-                if (mutation.type === 'attributes' && element.usesCoreAttribute(mutation.attributeName)) {
+                if (mutation.type === 'attributes' && element.usesAttribute(mutation.attributeName)) {
                     if (element.hasAllCoreAttributes) {
                         this._load();
                     }
@@ -74,6 +74,10 @@ class ElementController {
                 callback();
             });
         }
+    }
+
+    get messengerInstance() {
+        return messenger;
     }
 
     get messenger() {

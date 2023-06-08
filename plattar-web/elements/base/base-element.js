@@ -20,6 +20,10 @@ class BaseElement extends HTMLElement {
         throw new Error("set BaseElement.onready - cannot use as element not connected");
     }
 
+    get messengerInstance() {
+        return this._controller ? this._controller.messengerInstance : undefined;
+    }
+
     get messenger() {
         return this._controller ? this._controller.messenger : undefined;
     }
@@ -77,6 +81,24 @@ class BaseElement extends HTMLElement {
         }
 
         return false;
+    }
+
+    usesOptionalAttribute(key) {
+        const attr = this.optionalAttributes;
+
+        const length = attr.length;
+
+        for (let i = 0; i < length; i++) {
+            if (attr[i].key === key) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    usesAttribute(key) {
+        return this.usesCoreAttribute(key) || this.usesOptionalAttribute(key);
     }
 
     get optionalAttributes() {
