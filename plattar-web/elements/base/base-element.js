@@ -20,6 +20,10 @@ class BaseElement extends HTMLElement {
         throw new Error("set BaseElement.onready - cannot use as element not connected");
     }
 
+    get messengerInstance() {
+        return this._controller ? this._controller.messengerInstance : undefined;
+    }
+
     get messenger() {
         return this._controller ? this._controller.messenger : undefined;
     }

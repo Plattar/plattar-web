@@ -76,6 +76,10 @@ class ElementController {
         }
     }
 
+    get messengerInstance() {
+        return messenger;
+    }
+
     get messenger() {
         return messenger[this._messengerID];
     }
