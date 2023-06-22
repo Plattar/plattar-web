@@ -1,5 +1,6 @@
 const Util = require("../../util/util");
 const ElementController = require("../controllers/element-controller");
+const { messenger } = require("@plattar/context-messenger");
 
 class BaseElement extends HTMLElement {
     constructor() {
@@ -21,7 +22,7 @@ class BaseElement extends HTMLElement {
     }
 
     get messengerInstance() {
-        return this._controller ? this._controller.messengerInstance : undefined;
+        return messenger;
     }
 
     get messenger() {
@@ -29,11 +30,11 @@ class BaseElement extends HTMLElement {
     }
 
     get context() {
-        return this._controller ? this._controller.context : undefined;
+        return this.messengerInstance.self;
     }
 
     get parent() {
-        return this._controller ? this._controller.parent : undefined;
+        return this.messengerInstance.parent;
     }
 
     get element() {
