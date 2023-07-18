@@ -39,7 +39,7 @@ class ElementController {
         const serverLocation = Util.getServerLocation(this._server);
 
         if (serverLocation === undefined) {
-            throw new Error("ElementController - attribute \"server\" must be one of \"production\", \"staging\" or \"dev\"");
+            throw new Error("ElementController - attribute \"server\" must be one of \"production\", \"staging\", \"review\" or \"dev\"");
         }
 
         const embedLocation = element.elementLocation;

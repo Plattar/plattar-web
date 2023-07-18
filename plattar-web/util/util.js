@@ -3,6 +3,7 @@ class Util {
         switch (server) {
             case "production": return "https://app.plattar.com/";
             case "staging": return "https://staging.plattar.space/";
+            case "review": return "https://review.plattar.com/";
             case "dev": return "https://localhost/";
             default: return undefined;
         }
