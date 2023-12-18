@@ -12,6 +12,16 @@ class StudioElement extends BaseElement {
     get elementType() {
         return "studio";
     }
+
+    get optionalAttributes() {
+        return [{
+            key: "variation-id",
+            map: "variationId"
+        }, {
+            key: "variation-sku",
+            map: "variationSku"
+        }];
+    }
 }
 
 module.exports = StudioElement;
