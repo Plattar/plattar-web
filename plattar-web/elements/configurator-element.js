@@ -24,13 +24,20 @@ class ConfiguratorElement extends BaseElement {
     }
 
     get optionalAttributes() {
-        return [{
-            key: "config-state",
-            map: "config_state"
-        }, {
-            key: "show-ar",
-            map: "show_ar"
-        }];
+        return [
+            {
+                key: "config-state",
+                map: "config_state"
+            },
+            {
+                key: "show-ar",
+                map: "show_ar"
+            },
+            {
+                key: "scene-graph-id",
+                map: "scene_graph_id"
+            }
+        ];
     }
 }
 
