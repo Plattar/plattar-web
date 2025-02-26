@@ -50,6 +50,10 @@ class LauncherElement extends BaseElement {
             {
                 key: "show-ar-banner",
                 map: "show_ar_banner"
+            },
+            {
+                key: "scene-graph-id",
+                map: "scene_graph_id"
             }
         ];
     }
