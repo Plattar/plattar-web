@@ -27,6 +27,8 @@ class Util {
             case "facear":
             case "studio":
             case "product":
+            case "launcher":
+            case "gallery":
             case "model":
             case "configurator":
             case "webxr": return true;
