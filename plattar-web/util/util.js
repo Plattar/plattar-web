@@ -1,9 +1,9 @@
 class Util {
     static getServerLocation(server) {
         switch (server) {
-            case "production": return "https://app.plattar.com/";
-            case "staging": return "https://staging.plattar.space/";
-            case "review": return "https://review.plattar.com/";
+            case "production": return "https://renderer.plattar.com/";
+            case "staging": return "https://renderer-staging.plattar.com/";
+            case "review": return "https://renderer-review.plattar.com/";
             case "dev": return "https://localhost/";
             default: return undefined;
         }
@@ -13,7 +13,7 @@ class Util {
         const isValid = Util.isValidType(etype);
 
         if (isValid) {
-            return "renderer/" + etype + ".html";
+            return `${etype}.html`;
         }
 
         return undefined;

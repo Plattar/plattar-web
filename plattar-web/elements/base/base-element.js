@@ -160,8 +160,26 @@ class BaseElement extends HTMLElement {
         return "none";
     }
 
-    get elementLocation() {
-        return Util.getElementLocation(this.elementType);
+    get elementFullLocation() {
+        const server = this.hasAttribute("server") ? this.getAttribute("server") : "production";
+
+        const serverLocation = Util.getServerLocation(server);
+
+        if (serverLocation === undefined) {
+            throw new Error(`BaseElement.elementFullLocation - attribute "server" must be one of "production", "staging", "review" or "dev" but was "${server}"`);
+        }
+
+        const embedLocation = Util.getElementLocation(this.elementType);
+
+        if (embedLocation === undefined) {
+            throw new Error(`BaseElement.elementFullLocation - element named "${this.elementType}" is invalid`);
+        }
+
+        if (serverLocation === Util.getServerLocation('dev')) {
+            return `${serverLocation}renderer/${embedLocation}${this.allMappedAttributesQuery}`;
+        }
+
+        return `${serverLocation}${embedLocation}${this.allMappedAttributesQuery}`;
     }
 }
 

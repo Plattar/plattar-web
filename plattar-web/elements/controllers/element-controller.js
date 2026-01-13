@@ -36,19 +36,7 @@ class ElementController {
 
         this._server = element.hasAttribute("server") ? element.getAttribute("server") : "production";
 
-        const serverLocation = Util.getServerLocation(this._server);
-
-        if (serverLocation === undefined) {
-            throw new Error("ElementController - attribute \"server\" must be one of \"production\", \"staging\", \"review\" or \"dev\"");
-        }
-
-        const embedLocation = element.elementLocation;
-
-        if (embedLocation === undefined) {
-            throw new Error("ElementController - element named \"" + elementType + "\" is invalid");
-        }
-
-        const source = serverLocation + embedLocation + element.allMappedAttributesQuery;
+        const source = element.elementFullLocation;
 
         // ensure iframe ID is randomly generated as we could have multiple iframes
         // with same Scene ID - such as viewer and editor running on same page
