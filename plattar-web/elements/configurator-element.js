@@ -30,7 +30,7 @@ class ConfiguratorElement extends BaseElement {
             }
         }
 
-        return super.elementLocation;
+        return super.elementFullLocation;
     }
 
     get optionalAttributes() {
