@@ -31,6 +31,7 @@ class Util {
             case "gallery":
             case "model":
             case "configurator":
+            case "adhoc":
             case "webxr": return true;
             default: return false;
         }

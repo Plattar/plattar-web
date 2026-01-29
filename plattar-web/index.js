@@ -10,6 +10,7 @@ const ModelElement = require("./elements/model-element.js");
 const ConfiguratorElement = require("./elements/configurator-element.js");
 const LauncherElement = require("./elements/launcher-element.js");
 const GalleryElement = require("./elements/gallery-element.js");
+const AdhocElement = require("./elements/adhoc-element.js");
 const Version = require("./version");
 
 if (customElements.get("plattar-webxr") === undefined) {
@@ -54,6 +55,10 @@ if (customElements.get("plattar-gallery") === undefined) {
 
 if (customElements.get("plattar-launcher") === undefined) {
     customElements.define("plattar-launcher", LauncherElement);
+}
+
+if (customElements.get("plattar-adhoc") === undefined) {
+    customElements.define("plattar-adhoc", AdhocElement);
 }
 
 console.log("using @plattar/plattar-web v" + Version);
