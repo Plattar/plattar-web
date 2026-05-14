@@ -20,7 +20,7 @@ class AdhocElement extends BaseElement {
 
             switch (server) {
                 case "production": return `https://renderer.plattar.com/${type}.html${this.allMappedAttributesQuery}`;
-                case "staging": return `https://renderer-staging.plattar.com/${type}.html${this.allMappedAttributesQuery}`;
+                case "staging": return `https://renderer.plattar.space/${type}.html${this.allMappedAttributesQuery}`;
                 case "review": return `https://renderer-review.plattar.com/${type}.html${this.allMappedAttributesQuery}`;
                 case "dev": return `https://localhost/renderer/${type}.html${this.allMappedAttributesQuery}`;
                 default: throw new Error(`AdhocElement.elementFullLocation - attribute "server" must be one of "production", "staging", "review" or "dev" but was "${server}"`);

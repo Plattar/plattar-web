@@ -22,7 +22,7 @@ class ConfiguratorElement extends BaseElement {
 
                 switch (server) {
                     case "production": return `https://configurator.plattar.com/index.html${this.allMappedAttributesQuery}`;
-                    case "staging": return `https://configurator-staging.plattar.com/index.html${this.allMappedAttributesQuery}`;
+                    case "staging": return `https://configurator.plattar.space/index.html${this.allMappedAttributesQuery}`;
                     case "review": return `https://configurator-review.plattar.com/index.html${this.allMappedAttributesQuery}`;
                     case "dev": return `https://localhost/configurator/dist/index.html${this.allMappedAttributesQuery}`;
                     default: throw new Error(`ConfiguratorElement.elementFullLocation - attribute "server" must be one of "production", "staging", "review" or "dev" but was "${server}"`);

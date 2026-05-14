@@ -2,7 +2,7 @@ class Util {
     static getServerLocation(server) {
         switch (server) {
             case "production": return "https://renderer.plattar.com/";
-            case "staging": return "https://renderer-staging.plattar.com/";
+            case "staging": return "https://renderer.plattar.space/";
             case "review": return "https://renderer-review.plattar.com/";
             case "dev": return "https://localhost/";
             default: return undefined;
